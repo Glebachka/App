@@ -6,8 +6,18 @@ package com.saienko.bean;
 public class User {
     private int userId;
     private String userName;
+    private String userSsn;
 //    private Coach coach;
 //    private Role role;
+
+
+    public String getUserSsn() {
+        return userSsn;
+    }
+
+    public void setUserSsn(String userSsn) {
+        this.userSsn = userSsn;
+    }
 
     public int getUserId() {
         return userId;
