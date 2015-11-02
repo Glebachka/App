@@ -44,7 +44,19 @@ public class AppController {
     }
 
     /**
-     * Method for Add a new user to
+     * Medium method for user creation
+     */
+    @RequestMapping(value = {"/new"}, method = RequestMethod.GET)
+    public String newUser (ModelMap model){
+        User user = new User();
+        model.addAttribute("user", user);
+        model.addAttribute("edit", false);
+        return "registration";
+
+    }
+
+    /**
+     * Method for Add a new user from form submission.
      */
 
     @RequestMapping(value = {"/new"}, method = RequestMethod.POST)
@@ -62,6 +74,18 @@ public class AppController {
         userServise.saveUser(user);
         model.addAttribute("success", "User" + user.getUserName() + " registered complete");
         return "success";
+    }
+
+    /**
+     * Medium method for update user.
+     */
+    @RequestMapping (value = {"/edit-{userSsn}-user"}, method = RequestMethod.GET)
+    public String editUser(@PathVariable String userSsn, ModelMap model){
+
+        User user = userServise.findUserBySsn(userSsn);
+        model.addAttribute("user", user);
+        model.addAttribute("edit", true);
+        return "registration";
     }
 
     /**
