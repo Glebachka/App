@@ -1,14 +1,27 @@
 package com.saienko.bean;
 
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
 /**
  * Created by gleb on 25.10.2015.
  */
+@Entity
+@Table(name = "User")
+
 public class User {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int userId;
+
+    @Size(min = 3, max = 50)
+    @Column(name = "NAME", nullable = false)
     private String userName;
+
+    @NotNull
+    @Column(name = "SSN", unique = true, nullable = false)
     private String userSsn;
-//    private Coach coach;
-//    private Role role;
 
 
     public String getUserSsn() {
@@ -35,19 +48,24 @@ public class User {
         this.userName = userName;
     }
 
-//    public Coach getCoach() {
-//        return coach;
-//    }
-//
-//    public void setCoach(Coach coach) {
-//        this.coach = coach;
-//    }
-//
-//    public Role getRole() {
-//        return role;
-//    }
-//
-//    public void setRole(Role role) {
-//        this.role = role;
-//    }
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null) return false;
+        if (!(obj instanceof User)) return false;
+        User otherUser = (User) obj;
+        if (userId != otherUser.userId) return false;
+        if (userSsn == null) {
+            if (otherUser.userSsn != null) return false;
+        } else {
+            if (!userSsn.equals(otherUser.userSsn)) return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "User [id=" + userId + ", name=" + userName + ", userSsn=" + userSsn + "]";
+    }
+
 }
