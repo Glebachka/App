@@ -15,10 +15,11 @@ import org.springframework.web.servlet.view.JstlView;
  */
 @Configuration
 @EnableWebMvc
-@ComponentScan (basePackages = "com.saienko.configuration")
+@ComponentScan (basePackages = "java")
 
 public class AppConfig {
 
+    @Bean
     public ViewResolver viewResolver(){
         InternalResourceViewResolver viewResolver =  new InternalResourceViewResolver();
         viewResolver.setViewClass(JstlView.class);
