@@ -109,7 +109,7 @@ public class AppController {
      */
     @RequestMapping(value = {"/delete-{userSsn}-user"}, method = RequestMethod.GET)
     public String deleteUser(@PathVariable String userSsn){
-        userServise.deleteUserBySsn(userSsn);
+        userServise.deleteUserByUserSsn(userSsn);
         return "redirect:/list";
     }
 

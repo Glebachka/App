@@ -38,7 +38,6 @@ public class UserDao extends AbstractDao<Integer, User> implements UserDaoInterf
     public List<User> findAllUsers() {
         Criteria criteria = createEntityCriteria();
         return (List<User>) criteria.list();
-
     }
 
 
