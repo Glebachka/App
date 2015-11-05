@@ -15,15 +15,14 @@ import org.springframework.web.servlet.view.JstlView;
  */
 @Configuration
 @EnableWebMvc
-@ComponentScan (basePackages = "java")
-
+@ComponentScan (basePackages = "com.saienko")
 public class AppConfig {
 
     @Bean
     public ViewResolver viewResolver(){
         InternalResourceViewResolver viewResolver =  new InternalResourceViewResolver();
         viewResolver.setViewClass(JstlView.class);
-        viewResolver.setPrefix("/WEB-INF/views");
+        viewResolver.setPrefix("/WEB-INF/views/");
         viewResolver.setSuffix(".jsp");
         return viewResolver;
     }

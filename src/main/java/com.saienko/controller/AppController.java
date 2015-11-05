@@ -1,10 +1,12 @@
 package com.saienko.controller;
 
 
-import com.saienko.bean.User;
+import com.saienko.model.User;
 import com.saienko.service.UserService;
+import com.saienko.service.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -24,10 +26,11 @@ import java.util.Locale;
 
 @Controller
 @RequestMapping("/")
+//@ComponentScan("com.saienko.service")
 public class AppController {
 
     @Autowired
-    UserService userServise;
+    UserService userService;
 
     @Autowired
     MessageSource messageSource;
@@ -38,7 +41,7 @@ public class AppController {
      */
     @RequestMapping(value = {"/", "/list"}, method = RequestMethod.GET)
     public String listUsers(ModelMap model) {
-        List<User> users = userServise.findAllUsers();
+        List<User> users = userService.findAllUsers();
         model.addAttribute("users", users);
         return "allusers";
     }
@@ -65,13 +68,13 @@ public class AppController {
             return "registration";
         }
 
-        if (!userServise.isUserSsnUnique(user.getUserId(), user.getUserSsn())) {
+        if (!userService.isUserSsnUnique(user.getUserId(), user.getUserSsn())) {
             FieldError userSsnError = new FieldError("user", "userSsn", messageSource.getMessage("non.unique.ssn", new String[]{user.getUserSsn()}, Locale.getDefault()));
             result.addError(userSsnError);
             return "registration";
         }
 
-        userServise.saveUser(user);
+        userService.saveUser(user);
         model.addAttribute("success", "User" + user.getUserName() + " registered complete");
         return "success";
     }
@@ -82,7 +85,7 @@ public class AppController {
     @RequestMapping (value = {"/edit-{userSsn}-user"}, method = RequestMethod.GET)
     public String editUser(@PathVariable String userSsn, ModelMap model){
 
-        User user = userServise.findUserBySsn(userSsn);
+        User user = userService.findUserBySsn(userSsn);
         model.addAttribute("user", user);
         model.addAttribute("edit", true);
         return "registration";
@@ -96,10 +99,12 @@ public class AppController {
         if (result.hasErrors()){
             return "registration";
         }
-        if (!userServise.isUserSsnUnique(user.getUserId(), user.getUserSsn())){
+        if (!userService.isUserSsnUnique(user.getUserId(), user.getUserSsn())){
             FieldError userSsnError = new FieldError("user", "userSsn", messageSource.getMessage("non.unique.ssn", new String[]{user.getUserSsn()}, Locale.getDefault()));
+            result.addError(userSsnError);
+            return "registration";
         }
-        userServise.updateUser(user);
+        userService.updateUser(user);
         model.addAttribute("success", "User" +  user.getUserName() + " updated complete");
         return "success";
     }
@@ -109,7 +114,7 @@ public class AppController {
      */
     @RequestMapping(value = {"/delete-{userSsn}-user"}, method = RequestMethod.GET)
     public String deleteUser(@PathVariable String userSsn){
-        userServise.deleteUserByUserSsn(userSsn);
+        userService.deleteUserByUserSsn(userSsn);
         return "redirect:/list";
     }
 

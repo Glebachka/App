@@ -10,7 +10,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
-import org.springframework.orm.hibernate3.HibernateTransactionManager;
+import org.springframework.orm.hibernate4.HibernateTransactionManager;
 import org.springframework.orm.hibernate4.LocalSessionFactoryBean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
@@ -23,15 +23,14 @@ import java.util.Properties;
 
 @Configuration
 @EnableTransactionManagement
-@ComponentScan({"com.saienko.configurations"})
-@PropertySource(value = {"classpath:application.properties"} )
+@ComponentScan({ "com.saienko.configurations" })
+@PropertySource(value = { "classpath:application.properties" } )
 public class HibernateConfiguration {
     @Autowired
     private Environment environment;
 
     @Bean
     public LocalSessionFactoryBean sessionFactory(){
-
         LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
         sessionFactory.setDataSource(dataSource());
         sessionFactory.setPackagesToScan(new String [] {"com.saienko.model"});

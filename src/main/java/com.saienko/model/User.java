@@ -1,26 +1,27 @@
-package com.saienko.bean;
+package com.saienko.model;
+
+
+import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 /**
  * Created by gleb on 25.10.2015.
  */
 @Entity
-@Table(name = "User")
-
+@Table(name = "user")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int userId;
 
     @Size(min = 3, max = 50)
-    @Column(name = "NAME", nullable = false)
+    @Column(name = "USERNAME", nullable = false)
     private String userName;
 
-    @NotNull
-    @Column(name = "SSN", unique = true, nullable = false)
+    @NotEmpty
+    @Column(name = "USERSSN", unique = true, nullable = false)
     private String userSsn;
 
 
