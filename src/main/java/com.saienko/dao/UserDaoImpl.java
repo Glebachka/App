@@ -16,7 +16,7 @@ public class UserDaoImpl extends AbstractDao<Integer, User> implements UserDao {
 
     public User findUserByUserSsn(String userSsn) {
         Criteria criteria = createEntityCriteria();
-        criteria.add(Restrictions.eq("ssn", userSsn));
+        criteria.add(Restrictions.eq("userSsn", userSsn));
         return (User) criteria.uniqueResult();
     }
 
@@ -29,9 +29,9 @@ public class UserDaoImpl extends AbstractDao<Integer, User> implements UserDao {
 
     }
 
-    public void deleteUserByUserSsn(String ssn) {
-        Query query =getSession().createSQLQuery("delete FROM User where ssn= :ssn");
-        query.setString("ssn", ssn);
+    public void deleteUserByUserSsn(String userSsn) {
+        Query query = getSession().createSQLQuery("delete FROM User where userssn= :userSsn");
+        query.setString("userSsn", userSsn);
         query.executeUpdate();
     }
 

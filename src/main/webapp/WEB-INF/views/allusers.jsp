@@ -24,10 +24,10 @@
     </tr>
     <c:forEach items="${users}" var="user">
         <tr>
-            <td>${user.username}</td>
-            <td>${user.userssn}</td>
-            <td><a href="<c:url value='/edit-${user.userssn}-user'/> ">${user.userssn}</a></td>
-            <td><a href="<c:url value='/edit-${user.userssn}-user'/> ">Delete</a></td>
+            <td>${user.userName}</td>
+            <td>${user.userSsn}</td>
+            <td><a href="<c:url value='/edit-${user.userSsn}-user'/> ">${user.userSsn}</a></td>
+            <td><a href="<c:url value='/delete-${user.userSsn}-user'/> ">Delete</a></td>
         </tr>
 
 

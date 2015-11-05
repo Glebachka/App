@@ -26,7 +26,6 @@ import java.util.Locale;
 
 @Controller
 @RequestMapping("/")
-//@ComponentScan("com.saienko.service")
 public class AppController {
 
     @Autowired
