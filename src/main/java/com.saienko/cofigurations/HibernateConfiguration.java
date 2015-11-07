@@ -21,6 +21,8 @@ import java.util.Properties;
  * Created by gleb on 30.10.2015.
  */
 
+//TODO:for model add login and password for user administrators and DBA.
+
 @Configuration
 @EnableTransactionManagement
 @ComponentScan({ "com.saienko.configurations" })
