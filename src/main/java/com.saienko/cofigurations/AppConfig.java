@@ -45,8 +45,6 @@ public class AppConfig extends WebMvcConfigurerAdapter{
         registry.addResourceHandler("/static/**").addResourceLocations("/static/");
     }
 
-    //Bean for authrntication process. we clear JDBC for it.
-    //TODO:change JDBC for hibernate. check hibernate config.
     @Bean
     public DriverManagerDataSource dataSourceAuth(){
         DriverManagerDataSource dataSourceAuth = new DriverManagerDataSource();

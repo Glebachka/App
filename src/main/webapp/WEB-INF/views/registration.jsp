@@ -38,6 +38,12 @@
     </tr>
 
     <tr>
+      <td><label for="userPassword">Password </label></td>
+      <td><form:input path="userPassword" id="userPassword"/></td>
+      <td><form:errors path="userPassword" cssClass="error"/></td>
+    </tr>
+
+    <tr>
       <td colspan="3">
         <c:choose>
           <c:when test="${edit}">

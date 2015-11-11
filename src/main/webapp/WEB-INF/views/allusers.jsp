@@ -4,13 +4,9 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-        <title>Sport is our life</title>
-        <style>
-            tr:first-child{
-                font-weight: bold;
-                background-color: #C6C9C4;
-            }
-        </style>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>All Users</title>
+        <link href="<c:url value='/static/css/bootstrap.css' />" rel="stylesheet">
 
     </head>
 
@@ -18,11 +14,15 @@
 <body>
 
     <h2>List of Users</h2>
-<table>
+    <table class="table table-striped">
     <tr>
-        <td>Name</td><td>SSN</td><td></td>
+        <td>Name</td>
+        <td>SSN</td>
+        <td>Edit</td>
+        <td>Delete</td>
     </tr>
-    <c:forEach items="${users}" var="user">
+
+        <c:forEach items="${users}" var="user">
         <tr>
             <td>${user.userName}</td>
             <td>${user.userSsn}</td>

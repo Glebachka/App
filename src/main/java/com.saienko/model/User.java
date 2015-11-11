@@ -5,6 +5,8 @@ import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Created by gleb on 25.10.2015.
@@ -24,6 +26,14 @@ public class User {
     @Column(name = "USERSSN", unique = true, nullable = false)
     private String userSsn;
 
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "APP_USER_USER_ROLE", joinColumns = {@JoinColumn(name = "USERID")},
+            inverseJoinColumns = {@JoinColumn(name = "ID")})
+    private Set<UserRole> userRoles = new HashSet<UserRole>();
+
+
+    @Column(name = "USERPASSWORD", nullable = false)
+    private String userPassword;
 
     public String getUserSsn() {
         return userSsn;
@@ -49,24 +59,55 @@ public class User {
         this.userName = userName;
     }
 
+    public String getUserPassword() {
+        return userPassword;
+    }
+
+    public void setUserPassword(String userPassword) {
+        this.userPassword = userPassword;
+    }
+
+    public Set<UserRole> getUserRoles() {
+        return userRoles;
+    }
+
+    public void setUserRoles(Set<UserRole> userRoles) {
+        this.userRoles = userRoles;
+    }
+
     @Override
-    public boolean equals(Object obj) {
-        if (this == obj) return true;
-        if (obj == null) return false;
-        if (!(obj instanceof User)) return false;
-        User otherUser = (User) obj;
-        if (userId != otherUser.userId) return false;
-        if (userSsn == null) {
-            if (otherUser.userSsn != null) return false;
-        } else {
-            if (!userSsn.equals(otherUser.userSsn)) return false;
-        }
-        return true;
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof User)) return false;
+
+        User user = (User) o;
+
+        if (getUserId() != user.getUserId()) return false;
+        if (!getUserName().equals(user.getUserName())) return false;
+        if (!getUserSsn().equals(user.getUserSsn())) return false;
+        if (!getUserRoles().equals(user.getUserRoles())) return false;
+        return getUserPassword().equals(user.getUserPassword());
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = getUserId();
+        result = 31 * result + getUserName().hashCode();
+        result = 31 * result + getUserSsn().hashCode();
+        result = 31 * result + getUserRoles().hashCode();
+        result = 31 * result + getUserPassword().hashCode();
+        return result;
     }
 
     @Override
     public String toString() {
-        return "User [id=" + userId + ", name=" + userName + ", userSsn=" + userSsn + "]";
+        return "User{" +
+                "userId=" + userId +
+                ", userName='" + userName + '\'' +
+                ", userSsn='" + userSsn + '\'' +
+                ", userRoles=" + userRoles +
+                ", userPassword='" + userPassword + '\'' +
+                '}';
     }
-
 }
