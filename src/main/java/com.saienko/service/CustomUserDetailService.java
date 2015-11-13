@@ -1,12 +1,18 @@
 package com.saienko.service;
 
 import com.saienko.model.User;
+import com.saienko.model.UserRole;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -24,17 +30,17 @@ public class CustomUserDetailService implements UserDetailsService {
         if (user == null) {
             throw new UsernameNotFoundException("Username not Found in CustomUserDetailsService");
         }
-//        return new org.springframework.security.core.userdetails.User(user.getUserId(), user.getUserSsn(), user.getUserName(), user.getUserPassword(),true, true,true,true,getGrantedAuthorities(user));
-        //Here can be mistake. I use hard equals fin this place.
-        return (UserDetails) user;
+
+        return new org.springframework.security.core.userdetails.User(user.getUserName(), user.getUserPassword(), true, true, true, true, getGrantedAuthorities(user));
+
     }
-//this is method for get auth type for user and transmute it into UserDetailsService.
-//    private List<GrantedAuthority> getGrantedAuthorities(User user){
-//        List<GrantedAuthority> authorities= new ArrayList<GrantedAuthority>();
-//
-//        for (UserRole userRole : user.getUserRoles()){
-//            authorities.add(new SimpleGrantedAuthority("ROLE"+userRole.getRole()));
-//        }
-//        return authorities;
-//    }
+
+    private List<GrantedAuthority> getGrantedAuthorities(User user) {
+        List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
+
+        for (UserRole userRole : user.getUserRoles()) {
+            authorities.add(new SimpleGrantedAuthority("ROLE" + userRole.getRole()));
+        }
+        return authorities;
+    }
 }

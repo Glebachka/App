@@ -1,12 +1,5 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%--
-  Created by IntelliJ IDEA.
-  User: gleb
-  Date: 03.11.2015
-  Time: 21:43
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -26,7 +19,7 @@
   <table>
 
     <tr>
-      <td><label for="userName">Name</label></td>
+      <td><label for="userName">Name: </label></td>
       <td><form:input path="userName" id="userName"/></td>
       <td><form:errors path="userName" cssClass="error"/></td>
     </tr>
@@ -38,11 +31,12 @@
     </tr>
 
     <tr>
-      <td><label for="userPassword">Password </label></td>
+      <td><label for="userPassword">Password: </label></td>
       <td><form:input path="userPassword" id="userPassword"/></td>
       <td><form:errors path="userPassword" cssClass="error"/></td>
     </tr>
 
+    <br>
     <tr>
       <td colspan="3">
         <c:choose>

@@ -24,6 +24,7 @@ public class UserDaoImpl extends AbstractDao<Integer, User> implements UserDao {
         return getByKey(userId);
     }
 
+    //TODO: add method for save role in the app_user_user_role table.
     public void saveUser(User user) {
         persist(user);
 

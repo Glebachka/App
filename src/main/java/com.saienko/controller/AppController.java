@@ -39,9 +39,9 @@ public class AppController {
 
 
     /**
-     * Method returs all users;
+     * Method returns all users;
      */
-    @RequestMapping(value = {"/", "/list"}, method = RequestMethod.GET)
+    @RequestMapping(value = {"/list"}, method = RequestMethod.GET)
     public String listUsers(ModelMap model) {
         List<User> users = userService.findAllUsers();
         model.addAttribute("users", users);
@@ -119,9 +119,8 @@ public class AppController {
         return "redirect:/list";
     }
 
-    @RequestMapping(value = "/login", method = RequestMethod.GET)
+    @RequestMapping(value = {"/login", "/"}, method = RequestMethod.GET)
     public String loginPage() {
-
         return "login";
     }
 
