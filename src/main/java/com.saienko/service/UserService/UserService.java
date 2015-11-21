@@ -1,4 +1,4 @@
-package com.saienko.service;
+package com.saienko.service.UserService;
 
 import com.saienko.model.User;
 

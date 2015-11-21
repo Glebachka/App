@@ -1,4 +1,4 @@
-package com.saienko.dao;
+package com.saienko.dao.User;
 
 import com.saienko.model.User;
 

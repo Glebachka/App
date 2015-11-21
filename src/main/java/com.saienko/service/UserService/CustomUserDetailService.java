@@ -1,4 +1,4 @@
-package com.saienko.service;
+package com.saienko.service.UserService;
 
 import com.saienko.model.User;
 import com.saienko.model.UserRole;
@@ -30,16 +30,15 @@ public class CustomUserDetailService implements UserDetailsService {
         if (user == null) {
             throw new UsernameNotFoundException("Username not Found in CustomUserDetailsService");
         }
-
-        return new org.springframework.security.core.userdetails.User(user.getUserName(), user.getUserPassword(), true, true, true, true, getGrantedAuthorities(user));
+        return new org.springframework.security.core.userdetails.User(user.getUserName(),
+                user.getUserPassword(), getGrantedAuthorities(user));
 
     }
 
     private List<GrantedAuthority> getGrantedAuthorities(User user) {
         List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
-
         for (UserRole userRole : user.getUserRoles()) {
-            authorities.add(new SimpleGrantedAuthority("ROLE" + userRole.getRole()));
+            authorities.add(new SimpleGrantedAuthority("ROLE_" + userRole.getRole()));
         }
         return authorities;
     }

@@ -1,6 +1,5 @@
 package com.saienko.cofigurations;
 
-import com.saienko.security.SecurityConfig;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -48,8 +47,6 @@ public class AppConfig extends WebMvcConfigurerAdapter{
     @Bean
     public DriverManagerDataSource dataSourceAuth(){
         DriverManagerDataSource dataSourceAuth = new DriverManagerDataSource();
-
-
         return dataSourceAuth;
     }
 }

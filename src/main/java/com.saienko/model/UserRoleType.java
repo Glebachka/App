@@ -12,7 +12,7 @@ public enum UserRoleType {
 
     String userRoleType;
 
-    private UserRoleType(String userRoleType) {
+    UserRoleType(String userRoleType) {
         this.userRoleType = userRoleType;
     }
 

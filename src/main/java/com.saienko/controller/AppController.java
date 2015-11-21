@@ -2,7 +2,7 @@ package com.saienko.controller;
 
 
 import com.saienko.model.User;
-import com.saienko.service.UserService;
+import com.saienko.service.UserService.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.security.core.Authentication;
@@ -132,6 +132,5 @@ public class AppController {
         }
         return "redirect:/login?logout";
     }
-
 
 }

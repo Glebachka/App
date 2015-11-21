@@ -35,7 +35,7 @@ public class HibernateConfiguration {
     public LocalSessionFactoryBean sessionFactory(){
         LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
         sessionFactory.setDataSource(dataSource());
-        sessionFactory.setPackagesToScan(new String [] {"com.saienko.model"});
+        sessionFactory.setPackagesToScan("com.saienko.model");
         sessionFactory.setHibernateProperties(hibernateProperties());
         return sessionFactory;
     }

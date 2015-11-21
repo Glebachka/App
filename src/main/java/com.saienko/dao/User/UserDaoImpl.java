@@ -1,5 +1,6 @@
-package com.saienko.dao;
+package com.saienko.dao.User;
 
+import com.saienko.dao.AbstractDao;
 import com.saienko.model.User;
 import org.hibernate.Criteria;
 import org.hibernate.Query;

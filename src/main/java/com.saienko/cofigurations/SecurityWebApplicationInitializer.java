@@ -1,4 +1,4 @@
-package com.saienko.security;
+package com.saienko.cofigurations;
 
 import org.springframework.security.web.context.AbstractSecurityWebApplicationInitializer;
 

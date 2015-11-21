@@ -35,6 +35,7 @@
 </table>
 <br>
 <a href="<c:url value='/new' /> ">Add new User</a>
+    <a href="<c:url value='/login' /> ">Login</a>
 
 
 
