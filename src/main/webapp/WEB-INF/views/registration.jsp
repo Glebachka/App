@@ -25,9 +25,9 @@
     </tr>
 
     <tr>
-      <td><label for="userSsn">SSN: </label> </td>
-      <td><form:input path="userSsn" id="userSsn"/></td>
-      <td><form:errors path="userSsn" cssClass="error"/></td>
+      <td><label for="userLogin">LOGIN: </label></td>
+      <td><form:input path="userLogin" id="userLogin"/></td>
+      <td><form:errors path="userLogin" cssClass="error"/></td>
     </tr>
 
     <tr>

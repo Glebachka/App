@@ -41,6 +41,8 @@ public class AppSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
             logger.info("redirect failed in AppHandler");
             return;
         }
+
+
         redirectStrategy.sendRedirect(request, response, targetUrl);
 
     }
@@ -55,11 +57,11 @@ public class AppSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
         }
 
         if (isAdmin(roles)) {
-            url = "/admin";
+            url = "/dba/";
         } else if (isDba(roles)) {
-            url = "/dba";
+            url = "/admin/";
         } else if (isUser(roles)) {
-            url = "/user";
+            url = "/user/";
         } else {
             url = "/accessDenied";
         }

@@ -25,8 +25,8 @@ public class CustomUserDetailService implements UserDetailsService {
     private UserService userService;
 
     @Transactional(readOnly = true)
-    public UserDetails loadUserByUsername(String userSsn) throws UsernameNotFoundException {
-        User user = userService.findUserBySsn(userSsn);
+    public UserDetails loadUserByUsername(String userLogin) throws UsernameNotFoundException {
+        User user = userService.findUserByLogin(userLogin);
         if (user == null) {
             throw new UsernameNotFoundException("Username not Found in CustomUserDetailsService");
         }

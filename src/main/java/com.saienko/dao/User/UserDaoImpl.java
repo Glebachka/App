@@ -15,9 +15,9 @@ import java.util.List;
 @Repository("userDao")
 public class UserDaoImpl extends AbstractDao<Integer, User> implements UserDao {
 
-    public User findUserByUserSsn(String userSsn) {
+    public User findUserByUserLogin(String userLogin) {
         Criteria criteria = createEntityCriteria();
-        criteria.add(Restrictions.eq("userSsn", userSsn));
+        criteria.add(Restrictions.eq("userLogin", userLogin));
         return (User) criteria.uniqueResult();
     }
 
@@ -25,15 +25,15 @@ public class UserDaoImpl extends AbstractDao<Integer, User> implements UserDao {
         return getByKey(userId);
     }
 
-    //TODO: add method for save role in the app_user_user_role table.
+
     public void saveUser(User user) {
         persist(user);
 
     }
 
-    public void deleteUserByUserSsn(String userSsn) {
-        Query query = getSession().createSQLQuery("delete FROM User where userssn= :userSsn");
-        query.setString("userSsn", userSsn);
+    public void deleteUserByUserLogin(String userLogin) {
+        Query query = getSession().createSQLQuery("delete FROM User where userssn= :userLogin");
+        query.setString("userLogin", userLogin);
         query.executeUpdate();
     }
 

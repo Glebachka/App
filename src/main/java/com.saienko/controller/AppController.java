@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -41,9 +42,10 @@ public class AppController {
     /**
      * Method returns all users;
      */
-    @RequestMapping(value = {"/list"}, method = RequestMethod.GET)
+    @RequestMapping(value = {"/list", "/admin/list/", "/dba/list/", "/user/list/", "/admin/", "/user/", "/dba/"}, method = RequestMethod.GET)
     public String listUsers(ModelMap model) {
         List<User> users = userService.findAllUsers();
+        model.addAttribute("currentuser", getCurrentUser());
         model.addAttribute("users", users);
         return "allusers";
     }
@@ -69,9 +71,9 @@ public class AppController {
             return "registration";
         }
 
-        if (!userService.isUserSsnUnique(user.getUserId(), user.getUserSsn())) {
-            FieldError userSsnError = new FieldError("user", "userSsn", messageSource.getMessage("non.unique.ssn", new String[]{user.getUserSsn()}, Locale.getDefault()));
-            result.addError(userSsnError);
+        if (!userService.isUserLoginUnique(user.getUserId(), user.getUserLogin())) {
+            FieldError userLoginError = new FieldError("user", "userLogin", messageSource.getMessage("non.unique.login", new String[]{user.getUserLogin()}, Locale.getDefault()));
+            result.addError(userLoginError);
             return "registration";
         }
 
@@ -83,10 +85,10 @@ public class AppController {
     /**
      * Medium method for update user.
      */
-    @RequestMapping (value = {"/edit-{userSsn}-user"}, method = RequestMethod.GET)
-    public String editUser(@PathVariable String userSsn, ModelMap model){
+    @RequestMapping(value = {"/edit-{userLogin}-user"}, method = RequestMethod.GET)
+    public String editUser(@PathVariable String userLogin, ModelMap model) {
 
-        User user = userService.findUserBySsn(userSsn);
+        User user = userService.findUserByLogin(userLogin);
         model.addAttribute("user", user);
         model.addAttribute("edit", true);
         return "registration";
@@ -95,14 +97,14 @@ public class AppController {
     /**
      * Update existing user
      */
-    @RequestMapping(value = {"/edit-{userSsn}-user"}, method = RequestMethod.POST)
-    public String updateUser(@Valid User user, BindingResult result, ModelMap model, @PathVariable String userSsn){
+    @RequestMapping(value = {"/edit-{userLogin}-user"}, method = RequestMethod.POST)
+    public String updateUser(@Valid User user, BindingResult result, ModelMap model, @PathVariable String userLogin) {
         if (result.hasErrors()){
             return "registration";
         }
-        if (!userService.isUserSsnUnique(user.getUserId(), user.getUserSsn())){
-            FieldError userSsnError = new FieldError("user", "userSsn", messageSource.getMessage("non.unique.ssn", new String[]{user.getUserSsn()}, Locale.getDefault()));
-            result.addError(userSsnError);
+        if (!userService.isUserLoginUnique(user.getUserId(), user.getUserLogin())) {
+            FieldError userLoginError = new FieldError("user", "userLogin", messageSource.getMessage("non.unique.login", new String[]{user.getUserLogin()}, Locale.getDefault()));
+            result.addError(userLoginError);
             return "registration";
         }
         userService.updateUser(user);
@@ -113,9 +115,9 @@ public class AppController {
     /**
     * Method for delete user
      */
-    @RequestMapping(value = {"/delete-{userSsn}-user"}, method = RequestMethod.GET)
-    public String deleteUser(@PathVariable String userSsn){
-        userService.deleteUserByUserSsn(userSsn);
+    @RequestMapping(value = {"/delete-{userLogin}-user"}, method = RequestMethod.GET)
+    public String deleteUser(@PathVariable String userLogin) {
+        userService.deleteUserByUserLogin(userLogin);
         return "redirect:/list";
     }
 
@@ -133,4 +135,18 @@ public class AppController {
         return "redirect:/login?logout";
     }
 
+    private User getCurrentUser() {
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String userLogin = "";
+        User currentUser = null;
+
+        if (principal instanceof UserDetails) {
+            userLogin = ((UserDetails) principal).getUsername();
+            currentUser = userService.findUserByLogin(userLogin);
+        } else {
+            userLogin = principal.toString();
+            currentUser = userService.findUserByLogin(userLogin);
+        }
+        return currentUser;
+    }
 }

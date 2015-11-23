@@ -24,7 +24,7 @@ public class User {
 
     @NotEmpty
     @Column(name = "USERSSN", unique = true, nullable = false)
-    private String userSsn;
+    private String userLogin;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "APP_USER_USER_ROLE", joinColumns = {@JoinColumn(name = "USERID")},
@@ -35,12 +35,12 @@ public class User {
     @Column(name = "USERPASSWORD", nullable = false)
     private String userPassword;
 
-    public String getUserSsn() {
-        return userSsn;
+    public String getUserLogin() {
+        return userLogin;
     }
 
-    public void setUserSsn(String userSsn) {
-        this.userSsn = userSsn;
+    public void setUserLogin(String userLogin) {
+        this.userLogin = userLogin;
     }
 
     public int getUserId() {
@@ -84,7 +84,7 @@ public class User {
 
         if (getUserId() != user.getUserId()) return false;
         if (!getUserName().equals(user.getUserName())) return false;
-        if (!getUserSsn().equals(user.getUserSsn())) return false;
+        if (!getUserLogin().equals(user.getUserLogin())) return false;
         if (!getUserRoles().equals(user.getUserRoles())) return false;
         return getUserPassword().equals(user.getUserPassword());
 
@@ -94,7 +94,7 @@ public class User {
     public int hashCode() {
         int result = getUserId();
         result = 31 * result + getUserName().hashCode();
-        result = 31 * result + getUserSsn().hashCode();
+        result = 31 * result + getUserLogin().hashCode();
         result = 31 * result + getUserRoles().hashCode();
         result = 31 * result + getUserPassword().hashCode();
         return result;
@@ -105,7 +105,7 @@ public class User {
         return "User{" +
                 "userId=" + userId +
                 ", userName='" + userName + '\'' +
-                ", userSsn='" + userSsn + '\'' +
+                ", userLogin='" + userLogin + '\'' +
                 ", userRoles=" + userRoles +
                 ", userPassword='" + userPassword + '\'' +
                 '}';

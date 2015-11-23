@@ -11,9 +11,12 @@ public interface UserService {
     User findByUserId(int userId);
     void saveUser(User user);
     void updateUser(User user);
-    void deleteUserByUserSsn(String ssn);
+
+    void deleteUserByUserLogin(String login);
     List<User> findAllUsers();
-    User findUserBySsn(String ssn);
-    boolean isUserSsnUnique(Integer id, String ssn);
+
+    User findUserByLogin(String login);
+
+    boolean isUserLoginUnique(Integer id, String login);
 
 }

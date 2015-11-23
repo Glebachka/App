@@ -19,16 +19,16 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserDao dao;
 
-    public User findUserBySsn(String ssn) {
-        return dao.findUserByUserSsn(ssn);
+    public User findUserByLogin(String login) {
+        return dao.findUserByUserLogin(login);
     }
 
     public List<User> findAllUsers() {
         return dao.findAllUsers();
     }
 
-    public boolean isUserSsnUnique(Integer id, String ssn) {
-        User user = findUserBySsn(ssn);
+    public boolean isUserLoginUnique(Integer id, String login) {
+        User user = findUserByLogin(login);
         return (user == null || ((id != null) && (user.getUserId() == id)));
     }
 
@@ -45,12 +45,12 @@ public class UserServiceImpl implements UserService {
         User entity = dao.findByUserId(user.getUserId());
         if (entity != null) {
             entity.setUserName(user.getUserName());
-            entity.setUserSsn(user.getUserSsn());
+            entity.setUserLogin(user.getUserLogin());
         }
     }
 
-    public void deleteUserByUserSsn(String ssn) {
-        dao.deleteUserByUserSsn(ssn);
+    public void deleteUserByUserLogin(String login) {
+        dao.deleteUserByUserLogin(login);
 
     }
 }
