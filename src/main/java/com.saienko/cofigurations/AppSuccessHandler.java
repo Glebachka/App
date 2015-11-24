@@ -56,9 +56,9 @@ public class AppSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
             roles.add(auth.getAuthority());
         }
 
-        if (isAdmin(roles)) {
+        if (isDba(roles)) {
             url = "/dba/";
-        } else if (isDba(roles)) {
+        } else if (isAdmin(roles)) {
             url = "/admin/";
         } else if (isUser(roles)) {
             url = "/user/";
