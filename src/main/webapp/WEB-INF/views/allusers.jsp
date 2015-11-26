@@ -23,7 +23,7 @@
 
 
 <body>
-<%--<input type="hidden" id="currentUserRole" value="${currentUserRole}"/>--%>
+<input type="hidden" id="currentUserRole" value="${currentUserRole}"/>
 
 
 <h2>List of Users</h2>
@@ -78,11 +78,7 @@
 <a class="btn btn-default" href="<c:url value='/logout' /> ">LogOut</a>
 <script>
 
-    var currentUserRoleJs = {currentUserRole};
 
-    $(function () {
-        console.log("welcome to JS :" + currentUserRoleJs);
-    });
 </script>
 
 </body>

@@ -1,6 +1,8 @@
 package com.saienko.controller.DBAController;
 
 import com.saienko.model.User;
+import com.saienko.model.UserRole;
+import com.saienko.service.UserRoleService.UserRoleService;
 import com.saienko.service.UserService.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
@@ -8,19 +10,22 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 import java.util.Locale;
 
 /**
  * Created by gleb on 21.11.2015.
  */
 @Controller
+@SessionAttributes("roles")
 @RequestMapping("/dba")
 public class DBAController {
+
+    @Autowired
+    UserRoleService userRoleService;
 
     @Autowired
     UserService userService;
@@ -68,6 +73,11 @@ public class DBAController {
         userService.saveUser(user);
 //        model.addAttribute("success", "User" + user.getUserName() + " registered complete");
         return "redirect:/dba/list";
+    }
+
+    @ModelAttribute("roles")
+    public List<UserRole> initializeRoles() {
+        return userRoleService.findAllUserRole();
     }
 
 
