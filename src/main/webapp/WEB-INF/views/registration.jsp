@@ -25,7 +25,7 @@
     </tr>
 
     <tr>
-      <td><label for="userLogin">LOGIN: </label></td>
+      <td><label for="userLogin">Login: </label></td>
       <td><form:input path="userLogin" id="userLogin"/></td>
       <td><form:errors path="userLogin" cssClass="error"/></td>
     </tr>
@@ -34,6 +34,12 @@
       <td><label for="userPassword">Password: </label></td>
       <td><form:input path="userPassword" id="userPassword"/></td>
       <td><form:errors path="userPassword" cssClass="error"/></td>
+    </tr>
+
+    <tr>
+      <td><label for="userPassword">Role: </label></td>
+      <td><form:input path="userRole" id="userRole"/></td>
+      <td><form:errors path="userRole" cssClass="error"/></td>
     </tr>
 
     <br>

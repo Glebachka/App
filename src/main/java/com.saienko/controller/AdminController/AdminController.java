@@ -91,12 +91,4 @@ public class AdminController {
         return "success";
     }
 
-    /**
-     * Method for delete user
-     */
-    @RequestMapping(value = {"/delete-{userLogin}-user"}, method = RequestMethod.GET)
-    public String deleteUser(@PathVariable String userLogin) {
-        userService.deleteUserByUserLogin(userLogin);
-        return "redirect:/list";
-    }
 }

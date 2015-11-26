@@ -37,10 +37,7 @@ public class UserRole {
 
     @Override
     public String toString() {
-        return "UserRole{" +
-                "userRoleId=" + userRoleId +
-                ", role='" + role + '\'' +
-                '}';
+        return role;
     }
 
     @Override

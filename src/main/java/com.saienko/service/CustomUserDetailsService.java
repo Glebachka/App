@@ -1,7 +1,8 @@
-package com.saienko.service.UserService;
+package com.saienko.service;
 
 import com.saienko.model.User;
 import com.saienko.model.UserRole;
+import com.saienko.service.UserService.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -19,7 +20,7 @@ import java.util.List;
  * Created by gleb on 11.11.2015.
  */
 @Service("customUserDetailsService")
-public class CustomUserDetailService implements UserDetailsService {
+public class CustomUserDetailsService implements UserDetailsService {
 
     @Autowired
     private UserService userService;

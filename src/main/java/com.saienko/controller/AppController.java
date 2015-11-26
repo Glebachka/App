@@ -1,7 +1,7 @@
 package com.saienko.controller;
 
 
-import com.google.gson.Gson;
+
 import com.saienko.model.User;
 import com.saienko.service.UserService.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,16 +38,15 @@ public class AppController {
     /**
      * Method returns all users;
      */
-    @RequestMapping(value = {"/list", "/admin/list/", "/dba/list/", "/user/list/", "/admin/", "/user/", "/dba/"}, method = RequestMethod.GET)
+    @RequestMapping(value = {"/list", "/admin/list", "/dba/list", "/user/list", "/admin", "/user", "/dba"}, method = RequestMethod.GET)
     public String listUsers(ModelMap model) {
         List<User> users = userService.findAllUsers();
-        model.addAttribute("currentuserToJson", userToJson(getCurrentUser()));
-        model.addAttribute("currentuser", getCurrentUser());
+
+        model.addAttribute("currentUserName", getCurrentUser().getUserName());
+        model.addAttribute("currentUserRole", getCurrentRole());
         model.addAttribute("users", users);
         return "allusers";
     }
-
-
 
     @RequestMapping(value = {"/login", "/"}, method = RequestMethod.GET)
     public String loginPage() {
@@ -67,7 +66,6 @@ public class AppController {
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String userLogin = "";
         User currentUser = null;
-
         if (principal instanceof UserDetails) {
             userLogin = ((UserDetails) principal).getUsername();
             currentUser = userService.findUserByLogin(userLogin);
@@ -78,9 +76,13 @@ public class AppController {
         return currentUser;
     }
 
-    public Gson userToJson(User user) {
-        Gson gson = new Gson();
-        gson.toJson(user);
-        return gson;
+    private String getCurrentRole() {
+        String userRole = getCurrentUser().getUserRoles().toString();
+        int size = userRole.length() - 1;
+        StringBuilder userRoleSB = new StringBuilder(userRole);
+        userRole = userRoleSB.deleteCharAt(size).deleteCharAt(0).toString().toLowerCase();
+        return userRole;
     }
+
+
 }

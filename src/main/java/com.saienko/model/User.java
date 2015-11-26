@@ -26,6 +26,7 @@ public class User {
     @Column(name = "USERSSN", unique = true, nullable = false)
     private String userLogin;
 
+    @NotEmpty
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "APP_USER_USER_ROLE", joinColumns = {@JoinColumn(name = "USERID")},
             inverseJoinColumns = {@JoinColumn(name = "ID")})
