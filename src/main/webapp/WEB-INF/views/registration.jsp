@@ -37,8 +37,7 @@
         </tr>
 
         <tr>
-            <td><label for="userPassword">Role: </label></td>
-                <%--<td><form:input path="userRoles" id="userRoles"/></td>--%>
+            <td><label for="userRoles">Role: </label></td>
             <td><form:select path="userRoles" items="${roles}" multiple="true" itemValue="userRoleId" itemLabel="role"
                              id="userRoleJSPId"/></td>
             <td><form:errors path="userRoles" cssClass="error"/></td>
@@ -49,10 +48,10 @@
             <td colspan="3">
                 <c:choose>
                     <c:when test="${edit}">
-                        <input type="submit" value="Update"/>
+                        <input type="submit" class="btn btn-default" value="Update"/>
                     </c:when>
                     <c:otherwise>
-                        <input type="submit" value="Register"/>
+                        <input type="submit" class="btn btn-default" value="Register"/>
                     </c:otherwise>
                 </c:choose>
             </td>

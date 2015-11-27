@@ -38,6 +38,7 @@ public class AppController {
     /**
      * Method returns all users;
      */
+
     @RequestMapping(value = {"/list", "/admin/list", "/dba/list", "/user/list", "/admin", "/user", "/dba"}, method = RequestMethod.GET)
     public String listUsers(ModelMap model) {
         List<User> users = userService.findAllUsers();
