@@ -1,6 +1,6 @@
 package com.saienko.service.LinkService;
 
-import com.saienko.dao.Link.LinkDao;
+import com.saienko.dao.UserLinks.LinkDao;
 import com.saienko.model.Link;
 import com.saienko.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
