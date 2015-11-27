@@ -2,6 +2,7 @@ package com.saienko.service.LinkService;
 
 import com.saienko.dao.Link.LinkDao;
 import com.saienko.model.Link;
+import com.saienko.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,7 +28,29 @@ public class LinkServiceImpl implements LinkService {
         return linkDao.findLinkByLink(link);
     }
 
-    public List<Link> findAllLinks() {
-        return linkDao.findtAllLinks();
+    public List<Link> findAllUserLinks(User user) {
+        return linkDao.findAllUserLinks(user);
+    }
+
+    public void deleteLinkByID(String link) {
+        linkDao.deleteLink(link);
+    }
+
+    public void updateLink(Link link) {
+        Link entity = linkDao.findLinkById(link.getLinkId());
+        if (entity != null) {
+            entity.setLink(link.getLink());
+            entity.setLinkDescription(link.getLinkDescription());
+        }
+    }
+
+    public boolean isLinkUnique(Integer id, String link) {
+
+        Link linkEntity = linkDao.findLinkByLink(link);
+        return (linkEntity == null || ((id != null) && (linkEntity.getLinkId() == id)));
+    }
+
+    public void saveLink(Link link) {
+        linkDao.saveLink(link);
     }
 }

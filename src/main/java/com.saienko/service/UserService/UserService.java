@@ -9,10 +9,13 @@ import java.util.List;
  */
 public interface UserService {
     User findByUserId(int userId);
+
     void saveUser(User user);
+
     void updateUser(User user);
 
     void deleteUserByUserLogin(String login);
+
     List<User> findAllUsers();
 
     User findUserByLogin(String login);

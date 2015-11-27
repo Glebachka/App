@@ -28,7 +28,6 @@ public class UserDaoImpl extends AbstractDao<Integer, User> implements UserDao {
 
     public void saveUser(User user) {
         persist(user);
-
     }
 
     public void deleteUserByUserLogin(String userLogin) {
@@ -41,7 +40,4 @@ public class UserDaoImpl extends AbstractDao<Integer, User> implements UserDao {
         Criteria criteria = createEntityCriteria();
         return (List<User>) criteria.list();
     }
-
-
-
 }

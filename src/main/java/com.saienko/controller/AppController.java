@@ -38,22 +38,32 @@ public class AppController {
     /**
      * Method returns all users;
      */
-
-    @RequestMapping(value = {"/list", "/admin/list", "/dba/list", "/user/list", "/admin", "/user", "/dba"}, method = RequestMethod.GET)
+    @RequestMapping(value = {"/list", "/admin/list", "/dba/list", "/admin", "/dba"}, method = RequestMethod.GET)
     public String listUsers(ModelMap model) {
         List<User> users = userService.findAllUsers();
-
         model.addAttribute("currentUserName", getCurrentUser().getUserName());
         model.addAttribute("currentUserRole", getCurrentRole());
         model.addAttribute("users", users);
         return "allusers";
     }
 
+    /**
+     * Login
+     *
+     * @return
+     */
     @RequestMapping(value = {"/login", "/"}, method = RequestMethod.GET)
     public String loginPage() {
         return "login";
     }
 
+    /**
+     * Logout
+     *
+     * @param request
+     * @param response
+     * @return
+     */
     @RequestMapping(value = "/logout", method = RequestMethod.GET)
     public String logout(HttpServletRequest request, HttpServletResponse response) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();

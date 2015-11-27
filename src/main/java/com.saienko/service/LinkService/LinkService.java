@@ -1,6 +1,7 @@
 package com.saienko.service.LinkService;
 
 import com.saienko.model.Link;
+import com.saienko.model.User;
 
 import java.util.List;
 
@@ -13,5 +14,14 @@ public interface LinkService {
 
     Link findLinkByLink(String link);
 
-    List<Link> findAllLinks();
+    List<Link> findAllUserLinks(User user);
+
+    void deleteLinkByID(String link);
+
+    void updateLink(Link link);
+
+    boolean isLinkUnique(Integer id, String link);
+
+    void saveLink(Link link);
+
 }
