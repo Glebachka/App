@@ -13,7 +13,7 @@ import javax.validation.constraints.NotNull;
 public class Link {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @NotNull
     @Column(name = "LINK_ID")
     private int linkId;
