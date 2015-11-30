@@ -32,8 +32,8 @@ public class LinkServiceImpl implements LinkService {
         return linkDao.findAllUserLinks(user);
     }
 
-    public void deleteLinkByID(String link) {
-        linkDao.deleteLink(link);
+    public void deleteLinkByID(int link) {
+        linkDao.deleteLinkById(link);
     }
 
     public void updateLink(Link link) {

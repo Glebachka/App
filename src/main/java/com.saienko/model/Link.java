@@ -18,40 +18,40 @@ public class Link {
     @Column(name = "LINK_ID")
     private int linkId;
 
-    @Column(name = "USER_ID", nullable = false)
-    private int userId;
-
-    @NotEmpty
-    @Column(name = "LINK", unique = true, nullable = false)
-    private String Link;
-
-    @NotEmpty
-    @Column(name = "DESCRIPTION", nullable = false)
-    private String LinkDescription;
-
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Link)) return false;
 
-        Link link = (Link) o;
+        Link link1 = (Link) o;
 
-        if (getLinkId() != link.getLinkId()) return false;
-        if (getUserId() != link.getUserId()) return false;
-        if (!getLink().equals(link.getLink())) return false;
-        return getLinkDescription().equals(link.getLinkDescription());
+        if (getLinkId() != link1.getLinkId()) return false;
+        if (!getLink().equals(link1.getLink())) return false;
+        return !(getLinkDescription() != null ? !getLinkDescription().equals(link1.getLinkDescription()) : link1.getLinkDescription() != null);
 
     }
 
     @Override
     public int hashCode() {
         int result = getLinkId();
-        result = 31 * result + getUserId();
         result = 31 * result + getLink().hashCode();
-        result = 31 * result + getLinkDescription().hashCode();
+        result = 31 * result + (getLinkDescription() != null ? getLinkDescription().hashCode() : 0);
         return result;
     }
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+
+    @NotEmpty
+    @Column(name = "LINK", unique = true, nullable = false)
+    private String link;
+
+    @NotEmpty
+    @Column(name = "DESCRIPTION", nullable = false)
+    private String linkDescription;
+
+
 
     public int getLinkId() {
         return linkId;
@@ -61,28 +61,30 @@ public class Link {
         this.linkId = linkId;
     }
 
-    public int getUserId() {
-        return userId;
+
+    public User getUser() {
+        return user;
     }
 
-    public void setUserId(int userId) {
-        this.userId = userId;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public String getLink() {
-        return Link;
+        return link;
+
     }
 
     public void setLink(String link) {
-        Link = link;
+        this.link = link;
     }
 
     public String getLinkDescription() {
-        return LinkDescription;
+        return linkDescription;
     }
 
     public void setLinkDescription(String linkDescription) {
-        LinkDescription = linkDescription;
+        this.linkDescription = linkDescription;
     }
 
 }

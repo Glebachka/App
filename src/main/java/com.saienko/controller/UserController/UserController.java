@@ -9,6 +9,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -31,7 +33,40 @@ public class UserController {
 
         List<Link> links = linkService.findAllUserLinks(getCurrentUser());
         model.addAttribute("links", links);
+        model.addAttribute("currentUser", getCurrentUser());
         return "usermainpage";
+    }
+
+    @RequestMapping(value = {"/delete-{linkId}"}, method = RequestMethod.GET)
+    public String deleteLinkById(@PathVariable Integer linkId) {
+        linkService.deleteLinkByID(linkId);
+        return "redirect:/user/links";
+    }
+
+    @RequestMapping(value = {"/addLink"}, method = RequestMethod.POST)
+    public String saveLink(@ModelAttribute Link link) {
+//        if (!linkService.isLinkUnique(link.getLinkId(), link.getLink())){
+//            String error = "error";
+////            result.addError(Object error);
+//            return "/links";
+//        }
+        linkService.saveLink(link);
+        return "redirect:/user/links";
+    }
+
+
+    @RequestMapping(value = {"/edit-{linkId}"}, method = RequestMethod.GET)
+    public String getLink(@PathVariable int linkId, ModelMap model) {
+        Link link = linkService.findLinkById(linkId);
+        model.addAttribute("link", link);
+        return "/user/links";
+
+    }
+
+    @RequestMapping(value = {"/edit-{linkId}"}, method = RequestMethod.POST)
+    public String updateLink(Link link) {
+        linkService.updateLink(link);
+        return "/user/links";
     }
 
     private User getCurrentUser() {
@@ -47,9 +82,5 @@ public class UserController {
         }
         return currentUser;
     }
-
-
-
-
 
 }

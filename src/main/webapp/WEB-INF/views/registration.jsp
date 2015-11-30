@@ -17,32 +17,27 @@
 <form:form method="POST" modelAttribute="user">
     <form:input type="hidden" path="userId" id="userId"/>
     <table>
-
         <tr>
             <td><label for="userName">Name: </label></td>
             <td><form:input path="userName" id="userName"/></td>
             <td><form:errors path="userName" cssClass="error"/></td>
         </tr>
-
         <tr>
             <td><label for="userLogin">Login: </label></td>
             <td><form:input path="userLogin" id="userLogin"/></td>
             <td><form:errors path="userLogin" cssClass="error"/></td>
         </tr>
-
         <tr>
             <td><label for="userPassword">Password: </label></td>
             <td><form:input path="userPassword" id="userPassword"/></td>
             <td><form:errors path="userPassword" cssClass="error"/></td>
         </tr>
-
         <tr>
             <td><label for="userRoles">Role: </label></td>
-            <td><form:select path="userRoles" items="${roles}" multiple="true" itemValue="userRoleId" itemLabel="role"
+            <td><form:select path="userRoles" items="${roles}" multiple="false" itemValue="userRoleId" itemLabel="role"
                              id="userRoleJSPId"/></td>
             <td><form:errors path="userRoles" cssClass="error"/></td>
         </tr>
-
         <br>
         <tr>
             <td colspan="3">

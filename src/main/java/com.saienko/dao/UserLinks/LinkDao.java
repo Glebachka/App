@@ -15,7 +15,7 @@ public interface LinkDao {
 
     Link findLinkByLink(String link);
 
-    void deleteLink(String link);
+    void deleteLinkById(int id);
 
     void saveLink(Link link);
 }

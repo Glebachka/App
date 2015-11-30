@@ -35,27 +35,21 @@
             </P4>
 
         </div>
-
-        <td class="col-sm-1">Name</td>
-        <td class="col-sm-1">Login</td>
-        <c:if test="${currentUserRole == 'dba'}">
-            <td>Edit</td>
-            <td>Delete</td>
-
-
-            <td>Role</td>
-
-        </c:if>
+        <tr>
+            <td class="col-sm-1">Name</td>
+            <td class="col-sm-1">Login</td>
+            <c:if test="${currentUserRole == 'dba'}">
+                <td>Edit</td>
+                <td>Delete</td>
+                <td>Role</td>
+            </c:if>
 
         </tr>
         <div id="roleTD">
             <c:forEach items="${users}" var="user">
-
                 <tr>
                     <td>${user.userName}</td>
                     <td>${user.userLogin}</td>
-
-
                     <c:if test="${currentUserRole == 'dba'}">
                         <td>
                             <a href="<c:url value='/${currentUserRole}/edit-${user.userLogin}-user'/> ">${user.userLogin}</a>
@@ -65,22 +59,15 @@
                         <td>${user.userRoles}</td>
                     </c:if>
                 </tr>
-
-
             </c:forEach>
         </div>
     </table>
 </div>
 <br>
 
-
 <a class="btn btn-default" href="<c:url value='/${currentUserRole}/new' /> ">Add new User</a>
 <a class="btn btn-default" href="<c:url value='/logout' /> ">LogOut</a>
 <a class="btn btn-default" href="http://google.com">GOOGLE</a>
-<script>
-
-
-</script>
 
 </body>
 </html>

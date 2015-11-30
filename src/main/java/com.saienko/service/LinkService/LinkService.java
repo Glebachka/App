@@ -16,7 +16,7 @@ public interface LinkService {
 
     List<Link> findAllUserLinks(User user);
 
-    void deleteLinkByID(String link);
+    void deleteLinkByID(int id);
 
     void updateLink(Link link);
 

@@ -22,10 +22,10 @@ public class LinkDaoImpl extends AbstractDao<Integer, Link> implements LinkDao {
 
 
     public List<Link> findAllUserLinks(User user) {
-        int userId = user.getUserId();
-        Query query = getSession().createSQLQuery("SELECT * FROM link WHERE USER_ID = :userId ");
-        query.setInteger("userId", userId);
-        return (List<Link>) query.list();
+        Criteria criteria = getSession().createCriteria(Link.class);
+        criteria.add(Restrictions.eq("user", user));
+        return (List<Link>) criteria.list();
+
     }
 
     public Link findLinkByLink(String link) {
@@ -34,11 +34,10 @@ public class LinkDaoImpl extends AbstractDao<Integer, Link> implements LinkDao {
         return (Link) criteria.uniqueResult();
     }
 
-    public void deleteLink(String link) {
-        Query query = getSession().createSQLQuery("DELETE FROM Link WHERE LINK = :link");
-        query.setString("link", link);
+    public void deleteLinkById(int id) {
+        Query query = getSession().createSQLQuery("DELETE FROM LINK WHERE LINK_ID = :id");
+        query.setInteger("id", id);
         query.executeUpdate();
-
     }
 
     public void saveLink(Link link) {

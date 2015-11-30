@@ -32,6 +32,9 @@ public class User {
             inverseJoinColumns = {@JoinColumn(name = "ID")})
     private Set<UserRole> userRoles = new HashSet<UserRole>();
 
+    @OneToMany
+    private Set<Link> links;
+
 
     @Column(name = "USERPASSWORD", nullable = false)
     private String userPassword;
@@ -74,6 +77,14 @@ public class User {
 
     public void setUserRoles(Set<UserRole> userRoles) {
         this.userRoles = userRoles;
+    }
+
+    public Set<Link> getLinks() {
+        return links;
+    }
+
+    public void setLinks(Set<Link> links) {
+        this.links = links;
     }
 
     @Override
