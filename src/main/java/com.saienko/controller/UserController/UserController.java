@@ -9,6 +9,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,11 +29,12 @@ public class UserController {
     @Autowired
     LinkService linkService;
 
-    @RequestMapping(value = {"/links", " / "}, method = RequestMethod.GET)
+    @RequestMapping(value = {"/links", "/"}, method = RequestMethod.GET)
     public String findLinks(ModelMap model) {
-
         List<Link> links = linkService.findAllUserLinks(getCurrentUser());
+        model.addAttribute("newLink", new Link());
         model.addAttribute("links", links);
+        model.addAttribute("currentUserRole", getCurrentRole());
         model.addAttribute("currentUser", getCurrentUser());
         return "usermainpage";
     }
@@ -40,34 +42,30 @@ public class UserController {
     @RequestMapping(value = {"/delete-{linkId}"}, method = RequestMethod.GET)
     public String deleteLinkById(@PathVariable Integer linkId) {
         linkService.deleteLinkByID(linkId);
-        return "redirect:/user/links";
+        return getUrl();
     }
 
     @RequestMapping(value = {"/addLink"}, method = RequestMethod.POST)
-    public String saveLink(@ModelAttribute Link link) {
-//        if (!linkService.isLinkUnique(link.getLinkId(), link.getLink())){
-//            String error = "error";
-////            result.addError(Object error);
-//            return "/links";
-//        }
+    public String saveLink(@ModelAttribute Link link, BindingResult result) {
+        link.setUser(getCurrentUser());
         linkService.saveLink(link);
-        return "redirect:/user/links";
+        return getUrl();
     }
 
 
-    @RequestMapping(value = {"/edit-{linkId}"}, method = RequestMethod.GET)
-    public String getLink(@PathVariable int linkId, ModelMap model) {
-        Link link = linkService.findLinkById(linkId);
-        model.addAttribute("link", link);
-        return "/user/links";
-
-    }
-
-    @RequestMapping(value = {"/edit-{linkId}"}, method = RequestMethod.POST)
-    public String updateLink(Link link) {
-        linkService.updateLink(link);
-        return "/user/links";
-    }
+//    @RequestMapping(value = {"/edit-{linkId}"}, method = RequestMethod.GET)
+//    public String getLink(@PathVariable int linkId, ModelMap model) {
+//        Link link = linkService.findLinkById(linkId);
+//        model.addAttribute("link", link);
+//        return "/${currentUserRole}/links";
+//
+//    }
+//
+//    @RequestMapping(value = {"/edit-{linkId}"}, method = RequestMethod.POST)
+//    public String updateLink(Link link) {
+//        linkService.updateLink(link);
+//        return "/${currentUserRole}/links";
+//    }
 
     private User getCurrentUser() {
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -81,6 +79,19 @@ public class UserController {
             currentUser = userService.findUserByLogin(userLogin);
         }
         return currentUser;
+    }
+
+    private String getUrl() {
+        String url = "redirect:/" + getCurrentRole() + "/links";
+        return url;
+    }
+
+    private String getCurrentRole() {
+        String userRole = getCurrentUser().getUserRoles().toString();
+        int size = userRole.length() - 1;
+        StringBuilder userRoleSB = new StringBuilder(userRole);
+        userRole = userRoleSB.deleteCharAt(size).deleteCharAt(0).toString().toLowerCase();
+        return userRole;
     }
 
 }

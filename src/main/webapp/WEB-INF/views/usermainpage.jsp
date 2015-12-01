@@ -13,6 +13,8 @@
     <title>User Page</title>
 </head>
 <body>
+<input type="hidden" id="currentUserRole" value="${currentUserRole}"/>
+<input type="hidden" id="currentUser" value="${currentUser}"/>
 
 <table class="table table-striped">
     <tr>
@@ -26,9 +28,9 @@
                 <td>${link.linkDescription}</td>
 
                 <td>
-                    <a href="<c:url value='/user/edit-${link.linkId}'/> ">${link.link}</a>
+                    <a href="<c:url value='/${currentUserRole}/edit-${link.linkId}'/> ">${link.link}</a>
                 </td>
-                <td><a href="<c:url value='/user/delete-${link.linkId}'/> ">Delete</a>
+                <td><a href="<c:url value='/${currentUserRole}/delete-${link.linkId}'/> ">Delete</a>
                 </td>
             </tr>
         </c:forEach>
@@ -36,11 +38,11 @@
 </table>
 
 <div id="inputLink">
-    <form:form method="POST" action="/addLink">
+    <form:form method="POST" modelAttribute="link" commandName="newLink" action="addLink">
 
         <form:input type="hidden" path="linkId" id="linkId"/>
 
-        <form:input type="hidden" path="userId" id="${currentUser.userId}"/>
+        <form:input type="hidden" path="user" id="${currentUser}"/>
 
         <label for="link">Add link:</label>
         <form:input type="text" path="link" id="link"/>
@@ -48,7 +50,7 @@
         <label for="linkDescription">Link description:</label>
         <form:input type="text" path="linkDescription" id="linkDescription"/>
 
-        <input type="submit" class="btn btn-default" value="/addLink"/>
+        <input type="submit" class="btn btn-default" value="New Link"/>
     </form:form>
 </div>
 </body>

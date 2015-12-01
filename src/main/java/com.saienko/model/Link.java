@@ -18,6 +18,20 @@ public class Link {
     @Column(name = "LINK_ID")
     private int linkId;
 
+
+    @NotNull
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+
+    @NotEmpty
+    @Column(name = "LINK", unique = true, nullable = false)
+    private String link;
+
+    @NotEmpty
+    @Column(name = "DESCRIPTION", nullable = false)
+    private String linkDescription;
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -38,20 +52,6 @@ public class Link {
         result = 31 * result + (getLinkDescription() != null ? getLinkDescription().hashCode() : 0);
         return result;
     }
-
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User user;
-
-    @NotEmpty
-    @Column(name = "LINK", unique = true, nullable = false)
-    private String link;
-
-    @NotEmpty
-    @Column(name = "DESCRIPTION", nullable = false)
-    private String linkDescription;
-
-
 
     public int getLinkId() {
         return linkId;
