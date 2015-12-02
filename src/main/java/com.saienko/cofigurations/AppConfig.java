@@ -7,8 +7,11 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.context.support.ResourceBundleMessageSource;
+import org.springframework.core.io.FileSystemResource;
 import org.springframework.format.FormatterRegistry;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
+import org.springframework.web.multipart.MultipartResolver;
+import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
@@ -16,21 +19,23 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
 
+import java.io.IOException;
+
 /**
  * Created by gleb on 30.10.2015.
  */
 @Configuration
 @EnableWebMvc
 @Import({SecurityConfig.class})
-@ComponentScan (basePackages = "com.saienko")
-public class AppConfig extends WebMvcConfigurerAdapter{
+@ComponentScan(basePackages = "com.saienko")
+public class AppConfig extends WebMvcConfigurerAdapter {
 
     @Autowired
     RoleConverter roleConverter;
 
     @Bean
-    public ViewResolver viewResolver(){
-        InternalResourceViewResolver viewResolver =  new InternalResourceViewResolver();
+    public ViewResolver viewResolver() {
+        InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
         viewResolver.setViewClass(JstlView.class);
         viewResolver.setPrefix("/WEB-INF/views/");
         viewResolver.setSuffix(".jsp");
@@ -38,10 +43,10 @@ public class AppConfig extends WebMvcConfigurerAdapter{
     }
 
     @Bean
-    public MessageSource messageSource () {
+    public MessageSource messageSource() {
         ResourceBundleMessageSource messageSource = new ResourceBundleMessageSource();
         messageSource.setBasename("messages");
-        return  messageSource;
+        return messageSource;
     }
 
     @Override
@@ -50,7 +55,7 @@ public class AppConfig extends WebMvcConfigurerAdapter{
     }
 
     @Bean
-    public DriverManagerDataSource dataSourceAuth(){
+    public DriverManagerDataSource dataSourceAuth() {
         DriverManagerDataSource dataSourceAuth = new DriverManagerDataSource();
         return dataSourceAuth;
     }
@@ -58,4 +63,15 @@ public class AppConfig extends WebMvcConfigurerAdapter{
     public void addFormatters(FormatterRegistry registry) {
         registry.addConverter(roleConverter);
     }
+
+    @Bean(name= "multypartResolver")
+    public MultipartResolver multipartResolver() throws IOException {
+        CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver();
+        multipartResolver.setUploadTempDir(new FileSystemResource("/tmp/App/uploads"));
+        multipartResolver.setMaxUploadSize(5242880);
+        multipartResolver.setMaxInMemorySize(0);
+        return multipartResolver;
+    }
 }
+
+

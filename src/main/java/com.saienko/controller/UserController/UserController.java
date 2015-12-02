@@ -1,8 +1,10 @@
 package com.saienko.controller.UserController;
 
 import com.saienko.model.Link;
+import com.saienko.model.Photo;
 import com.saienko.model.User;
 import com.saienko.service.LinkService.LinkService;
+import com.saienko.service.PhotoService.PhotoService;
 import com.saienko.service.UserService.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -24,6 +26,11 @@ import java.util.List;
 @RequestMapping("/user")
 public class UserController {
 
+    private static String UPLOAD_LOCATION = "/tmp/App/uploads";
+    pr
+
+    @Autowired
+    PhotoService photoService;
     @Autowired
     UserService userService;
     @Autowired
@@ -66,6 +73,23 @@ public class UserController {
 //        linkService.updateLink(link);
 //        return "/${currentUserRole}/links";
 //    }
+
+    @RequestMapping(value = "/upload", method = RequestMethod.GET)
+    public String getPhotoUpload(ModelMap model){
+        Photo uploadPhoto = new Photo();
+        model.addAttribute("uploadPhoto", uploadPhoto);
+        return "uploadpage";
+    }
+
+    @RequestMapping(value = "/upload", method = RequestMethod.POST)
+    public String uploadPhoto(BindingResult result, ModelMap modelMap, Photo photo){
+
+        MultipartF
+        return "succeess";
+    }
+
+
+
 
     private User getCurrentUser() {
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();

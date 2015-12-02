@@ -35,6 +35,8 @@ public class User {
     @OneToMany
     private Set<Link> links;
 
+    @OneToMany
+    private Set<Photo> photos;
 
     @Column(name = "USERPASSWORD", nullable = false)
     private String userPassword;
