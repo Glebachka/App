@@ -9,7 +9,7 @@
 <input type="hidden" id="currentUserRole" value="${currentUserRole}"/>
 <%--<input type="hidden" id="currentUserLogin" value="${currentUserLogin}"/>--%>
 
-<form:form method="POST" modelAttribute="photoPhotoBucketTTT" commandName="photoPhotoBucketTTT" enctype="multipart/form-data">
+<form:form method="POST" modelAttribute="photoPhotoBucket" commandName="photoPhotoBucket" enctype="multipart/form-data">
 
     <%--&lt;%&ndash;**?${_csrf.parameterName}=${_csrf.token}**&ndash;%&gt;--%>
 
