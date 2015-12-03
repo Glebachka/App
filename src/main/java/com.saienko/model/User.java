@@ -12,7 +12,7 @@ import java.util.Set;
  * Created by gleb on 25.10.2015.
  */
 @Entity
-@Table(name = "userDao")
+@Table(name = "user")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -116,7 +116,7 @@ public class User {
 
     @Override
     public String toString() {
-        return "userDao{" +
+        return "user{" +
                 "userId=" + userId +
                 ", userName='" + userName + '\'' +
                 ", userLogin='" + userLogin + '\'' +

@@ -2,7 +2,7 @@ package com.saienko.service;
 
 import com.saienko.model.User;
 import com.saienko.model.UserRole;
-import com.saienko.service.userService.UserService;
+import com.saienko.service.userServiceT.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

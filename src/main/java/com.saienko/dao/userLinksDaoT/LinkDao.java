@@ -1,4 +1,4 @@
-package com.saienko.dao.userLinksDao;
+package com.saienko.dao.userLinksDaoT;
 
 import com.saienko.model.Link;
 import com.saienko.model.User;

@@ -1,4 +1,4 @@
-package com.saienko.dao.photoDao;
+package com.saienko.dao.photoDaoT;
 
 import com.saienko.model.Photo;
 import com.saienko.model.User;

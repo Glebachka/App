@@ -1,6 +1,6 @@
-package com.saienko.service.PhotoService;
+package com.saienko.service.photoServiceT;
 
-import com.saienko.dao.Photo.PhotoDao;
+import com.saienko.dao.photoDaoT.PhotoDao;
 import com.saienko.model.Photo;
 import com.saienko.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,7 +36,6 @@ public class PhotoServiceImpl implements PhotoService {
         return photoDao.findPhotoById(photo_id);
     }
 
-    //TODO: check the filepath after photo rename!
     public void updatePhoto(Photo photo) {
         Photo entity = photoDao.findPhotoById(photo.getPhotoId());
         if (entity != null) {
@@ -45,5 +44,6 @@ public class PhotoServiceImpl implements PhotoService {
             entity.setPhotoName(photo.getPhotoPath());
             photoDao.savePhoto(entity);
         }
-    }    }
+    }
+}
 

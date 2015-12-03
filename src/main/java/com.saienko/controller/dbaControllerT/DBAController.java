@@ -1,9 +1,9 @@
-package com.saienko.controller.DBAController;
+package com.saienko.controller.dbaControllerT;
 
 import com.saienko.model.User;
 import com.saienko.model.UserRole;
-import com.saienko.service.UserRoleService.UserRoleService;
-import com.saienko.service.UserService.UserService;
+import com.saienko.service.userRoleServiceT.UserRoleService;
+import com.saienko.service.userServiceT.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -85,7 +85,7 @@ public class DBAController {
     }
 
     /**
-     * Medium method for update user.
+     * Medium method for update user
      */
     @RequestMapping(value = {"/edit-{userLogin}-user"}, method = RequestMethod.GET)
     public String editUser(@PathVariable String userLogin, ModelMap model) {
@@ -110,14 +110,14 @@ public class DBAController {
             return "registration";
         }
         userService.updateUser(user);
-        model.addAttribute("success", "User " + user.getUserName() + " updated complete");
+        model.addAttribute("success", "user " + user.getUserName() + " updated complete");
         return "success";
     }
 
 
 
     /**
-     * This method returns current user.
+     * This method returns current user
      *
      * @return
      */
@@ -136,7 +136,7 @@ public class DBAController {
     }
 
     /**
-     * Thos method returns current role of the user.
+     * Thos method returns current role of the user
      *
      * @return
      */

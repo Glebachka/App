@@ -1,13 +1,13 @@
-package com.saienko.controller.UserController;
+package com.saienko.controller.userControllerT;
 
 import com.saienko.model.Link;
 import com.saienko.model.Photo;
 import com.saienko.model.PhotoBucket;
 import com.saienko.model.User;
-import com.saienko.model.UtilClasses.PhotoPhotoBucket;
-import com.saienko.service.LinkService.LinkService;
-import com.saienko.service.PhotoService.PhotoService;
-import com.saienko.service.UserService.UserService;
+import com.saienko.model.utilClasses.PhotoPhotoBucket;
+import com.saienko.service.linkServiceT.LinkService;
+import com.saienko.service.photoServiceT.PhotoService;
+import com.saienko.service.userServiceT.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -68,7 +68,7 @@ public class UserController {
 //TODO: make edit option in popup
 //    @RequestMapping(value = {"/edit-{linkId}"}, method = RequestMethod.GET)
 //    public String getLink(@PathVariable int linkId, ModelMap model) {
-//        Link link = linkService.findLinkById(linkId);
+//        Link link = linkServiceT.findLinkById(linkId);
 //        model.addAttribute("link", link);
 //        return "/${currentUserRole}/links";
 //
@@ -76,7 +76,7 @@ public class UserController {
 //
 //    @RequestMapping(value = {"/edit-{linkId}"}, method = RequestMethod.POST)
 //    public String updateLink(Link link) {
-//        linkService.updateLink(link);
+//        linkServiceT.updateLink(link);
 //        return "/${currentUserRole}/links";
 //    }
 
@@ -99,7 +99,6 @@ public class UserController {
         model.addAttribute("photoBucket", photoBucket);
         model.addAttribute("photoPhotoBucket", photoPhotoBucket);
         model.addAttribute("currentUserRole", getCurrentRole());
-//        model.addAttribute("currentUserLogin", getCurrentUser().getUserLogin());
         return "uploadpage";
     }
 
@@ -123,14 +122,14 @@ public class UserController {
                 checkDirectory.mkdirs();
                 makeDirs = true;
             } catch (SecurityException se) {
-                logger.config("dir creation error in UserController" + se);
+                logger.config("dir creation error in userControllerT" + se);
 //                }
             }
         }
         try {
             FileCopyUtils.copy(photoBucket.getMultipartFile().getBytes(), new File(getUploadPath() + photoBucket.getMultipartFile().getOriginalFilename()));
         } catch (IOException e) {
-            logger.config("File copy calls problem in UserController" + e);
+            logger.config("File copy calls problem in userControllerT" + e);
         }
         photoService.savePhoto(photo);
         return "successupload";

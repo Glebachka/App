@@ -21,7 +21,7 @@ import java.util.Properties;
  * Created by gleb on 30.10.2015.
  */
 
-//TODO:for model add login and password for userDao administrators and DBA.
+//TODO:for model add login and password for userDaoT administrators and DBA.
 
 @Configuration
 @EnableTransactionManagement

@@ -1,4 +1,4 @@
-package com.saienko.service.UserRoleService;
+package com.saienko.service.userRoleServiceT;
 
 import com.saienko.model.UserRole;
 

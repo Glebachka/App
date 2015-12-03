@@ -1,7 +1,7 @@
 package com.saienko.cofigurations.converters;
 
 import com.saienko.model.UserRole;
-import com.saienko.service.userRoleService.UserRoleService;
+import com.saienko.service.userRoleServiceT.UserRoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;

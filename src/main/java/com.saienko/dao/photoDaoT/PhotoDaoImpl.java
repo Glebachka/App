@@ -1,4 +1,4 @@
-package com.saienko.dao.photoDao;
+package com.saienko.dao.photoDaoT;
 
 import com.saienko.dao.AbstractDao;
 import com.saienko.model.Photo;
@@ -13,7 +13,7 @@ import java.util.List;
 /**
  * Created by gleb on 01.12.2015.
  */
-@Repository("photoDao")
+@Repository("photoDaoT")
 public class PhotoDaoImpl extends AbstractDao<Integer, Photo> implements PhotoDao {
 
     public void savePhoto(Photo photo) {
@@ -29,7 +29,7 @@ public class PhotoDaoImpl extends AbstractDao<Integer, Photo> implements PhotoDa
 
     public List<Photo> findAllPhotos(User user) {
         Criteria criteria = getSession().createCriteria(Photo.class);
-        criteria.add(Restrictions.eq("userDao", user));
+        criteria.add(Restrictions.eq("user", user));
         return (List<Photo>) criteria.list();
     }
 

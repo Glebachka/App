@@ -1,7 +1,7 @@
-package com.saienko.controller.AdminController;
+package com.saienko.controller.adminControllerT;
 
 import com.saienko.model.User;
-import com.saienko.service.UserService.UserService;
+import com.saienko.service.userServiceT.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
@@ -57,7 +57,7 @@ public class AdminController {
         }
 
         userService.saveUser(user);
-        model.addAttribute("success", "User" + user.getUserName() + " registered complete");
+        model.addAttribute("success", "user" + user.getUserName() + " registered complete");
         return "success";
     }
 
@@ -87,7 +87,7 @@ public class AdminController {
             return "registration";
         }
         userService.updateUser(user);
-        model.addAttribute("success", "User" + user.getUserName() + " updated complete");
+        model.addAttribute("success", "user" + user.getUserName() + " updated complete");
         return "success";
     }
 

@@ -1,4 +1,4 @@
-package com.saienko.service.LinkService;
+package com.saienko.service.linkServiceT;
 
 import com.saienko.model.Link;
 import com.saienko.model.User;
