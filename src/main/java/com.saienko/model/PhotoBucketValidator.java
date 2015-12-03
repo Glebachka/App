@@ -8,14 +8,13 @@ import org.springframework.validation.Validator;
  * Created by gleb on 02.12.2015.
  */
 @Component
-public class FileValidator implements Validator {
+public class PhotoBucketValidator implements Validator {
     public boolean supports(Class<?> clazz) {
-        return FileBucket.class.isAssignableFrom(clazz);
+        return PhotoBucket.class.isAssignableFrom(clazz);
     }
 
     public void validate(Object obj, Errors errors) {
-        FileBucket file = (FileBucket) obj;
-
+        PhotoBucket file = (PhotoBucket) obj;
         if(file.getFile()!=null){
             if (file.getFile().getSize() == 0) {
                 errors.rejectValue("file", "missing.file");

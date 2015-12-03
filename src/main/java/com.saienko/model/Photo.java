@@ -34,27 +34,14 @@ public class Photo {
     private String photoDescription;
 
     @Column(name = "PHOTO_AVATAR")
-    private Boolean avatar;
+    private Boolean photoAvatar;
 
-//    private MultipartFile file;
-
-
-
-
-//    public MultipartFile getFile() {
-//        return file;
-//    }
-//
-//    public void setFile(MultipartFile file) {
-//        this.file = file;
-//    }
-
-    public Boolean getAvatar() {
-        return avatar;
+    public Boolean getPhotoAvatar() {
+        return photoAvatar;
     }
 
-    public void setAvatar(Boolean avatar) {
-        this.avatar = avatar;
+    public void setPhotoAvatar(Boolean photoAvatar) {
+        this.photoAvatar = photoAvatar;
     }
 
     @Override

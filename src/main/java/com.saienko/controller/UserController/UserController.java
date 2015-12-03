@@ -1,9 +1,7 @@
 package com.saienko.controller.UserController;
 
-import com.saienko.model.FileBucket;
-import com.saienko.model.FileValidator;
-import com.saienko.model.Link;
-import com.saienko.model.User;
+import com.saienko.model.*;
+import com.saienko.model.UtilClasses.PhotoPhotoBucket;
 import com.saienko.service.LinkService.LinkService;
 import com.saienko.service.PhotoService.PhotoService;
 import com.saienko.service.UserService.UserService;
@@ -18,7 +16,6 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.validation.Valid;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
@@ -80,33 +77,39 @@ public class UserController {
 
 
     @Autowired
-    FileValidator fileValidator;
+    PhotoBucketValidator photoBucketValidator;
 
     @InitBinder("fileBucket")
     protected void initBinderFileBucket(WebDataBinder binder) {
-        binder.setValidator(fileValidator);
+        binder.setValidator(photoBucketValidator);
     }
 
 
     @RequestMapping(value = "/uploadpage", method = RequestMethod.GET)
     public String getPhotoUpload(ModelMap model) {
 //        Photo newPhoto = new Photo();
-        FileBucket photoBucket = new FileBucket();
+//        PhotoBucket photoBucket = new PhotoBucket();
+        PhotoPhotoBucket photoPhotoBucket = new PhotoPhotoBucket();
 //        model.addAttribute("newPhoto", newPhoto);
-        model.addAttribute("fileBucket", photoBucket);
-
+//        model.addAttribute("photoBucket", photoBucket);
+        model.addAttribute("photoPhotoBucket", photoPhotoBucket);
         return "uploadpage";
     }
 
     @RequestMapping(value = "/uploadpage", method = RequestMethod.POST)
-//    public String uploadPhoto(@RequestPart("photoBucket") PhotoBucket photoBucket,@ModelAttribute Photo photo, ModelMap modelMap, BindingResult result) {
-    public String uploadPhoto(@Valid FileBucket fileBucket, ModelMap model, BindingResult result) throws IOException {
+//    public String uploadPhoto(@Valid @RequestPart("photoBucket") PhotoBucket photoBucket,
+//                              @RequestPart("newPhoto") Photo photo,
+//                              ModelMap model, BindingResult result)  {
+//    public String uploadPhoto(@Valid PhotoBucket fileBucket, ModelMap model, BindingResult result) throws IOException {
+    public String uploadPhoto(PhotoPhotoBucket photoPhotoBucket, ModelMap model, BindingResult result) throws IOException {
 
+        Photo photo = photoPhotoBucket.getPhoto();
+        PhotoBucket photoBucket = photoPhotoBucket.getPhotoBucket();
         if (result.hasErrors()) {
             System.out.println("validation errors");
             return "uploadpage";
         } else {
-            MultipartFile multipartFile = fileBucket.getFile();
+            MultipartFile multipartFile = photoBucket.getFile();
             File checkDirectory = new File(getUploadPath());
             if (!checkDirectory.exists()) {
                 boolean makeDirs = false;
@@ -117,9 +120,16 @@ public class UserController {
                     logger.config("dir creation error in UserController" + se);
                 }
             }
-            FileCopyUtils.copy(fileBucket.getFile().getBytes(), new File(getUploadPath() + fileBucket.getFile().getOriginalFilename()));
-            String fileName = multipartFile.getOriginalFilename();
-            model.addAttribute("fileName", fileName);
+
+            try {
+                FileCopyUtils.copy(photoBucket.getFile().getBytes(), new File(getUploadPath() + photoBucket.getFile().getOriginalFilename()));
+            } catch (IOException e) {
+                logger.config("File copy calls problem in UserController" + e);
+            }
+            photoService.savePhoto(photo);
+
+//            String fileName = multipartFile.getOriginalFilename();
+//            model.addAttribute("fileName", fileName);
             return "successupload";
         }
     }

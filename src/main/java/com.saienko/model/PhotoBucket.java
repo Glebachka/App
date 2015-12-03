@@ -6,7 +6,9 @@ import org.springframework.web.multipart.MultipartFile;
  * Created by gleb on 02.12.2015.
  */
 
-public class FileBucket {
+public class PhotoBucket {
+
+     MultipartFile file;
 
     public MultipartFile getFile() {
         return file;
@@ -16,5 +18,4 @@ public class FileBucket {
         this.file = file;
     }
 
-     MultipartFile file;
 }

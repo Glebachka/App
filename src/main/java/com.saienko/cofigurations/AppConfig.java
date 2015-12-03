@@ -35,9 +35,8 @@ public class AppConfig extends WebMvcConfigurerAdapter {
     @Bean(name = "multipartResolver")
     public MultipartResolver multipartResolver() throws IOException {
         CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver();
-//        multipartResolver.setUploadTempDir(new FileSystemResource("/tmp/App/uploads"));
         multipartResolver.setMaxUploadSize(5242880);
-//        multipartResolver.setMaxInMemorySize(0);
+        multipartResolver.setMaxInMemorySize(0);
         return multipartResolver;
     }
 

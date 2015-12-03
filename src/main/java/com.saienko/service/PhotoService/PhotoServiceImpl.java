@@ -40,7 +40,7 @@ public class PhotoServiceImpl implements PhotoService {
     public void updatePhoto(Photo photo) {
         Photo entity = photoDao.findPhotoById(photo.getPhotoId());
         if (entity != null) {
-            entity.setAvatar(photo.getAvatar());
+            entity.setPhotoAvatar(photo.getPhotoAvatar());
             entity.setPhotoDescription(photo.getPhotoDescription());
             entity.setPhotoName(photo.getPhotoPath());
             photoDao.savePhoto(entity);
