@@ -4,7 +4,7 @@ import com.saienko.model.Link;
 import com.saienko.model.Photo;
 import com.saienko.model.PhotoBucket;
 import com.saienko.model.User;
-import com.saienko.model.utilClasses.PhotoPhotoBucketT;
+import com.saienko.model.utilClasses.PhotoPhotoBucket;
 import com.saienko.service.linkService.LinkService;
 import com.saienko.service.photoService.PhotoService;
 import com.saienko.service.userService.UserService;
@@ -92,21 +92,21 @@ public class UserController {
 
     @RequestMapping(value = "/uploadpage", method = RequestMethod.GET)
     public String getPhotoUpload(ModelMap model) {
-        PhotoPhotoBucketT photoPhotoBucketT = new PhotoPhotoBucketT();
+        PhotoPhotoBucket photoPhotoBucket = new PhotoPhotoBucket();
         Photo photo = new Photo();
         PhotoBucket photoBucket = new PhotoBucket();
         model.addAttribute("photo", photo);
         model.addAttribute("photoBucket", photoBucket);
-        model.addAttribute("photoPhotoBucket", photoPhotoBucketT);
+        model.addAttribute("photoPhotoBucket", photoPhotoBucket);
         model.addAttribute("currentUserRole", getCurrentRole());
         return "uploadpage";
     }
 
     @RequestMapping(value = "/uploadpage", method = RequestMethod.POST)
-    public String uploadPhoto(PhotoPhotoBucketT photoPhotoBucketT, ModelMap model, BindingResult result) throws IOException {
+    public String uploadPhoto(PhotoPhotoBucket photoPhotoBucket, ModelMap model, BindingResult result) throws IOException {
 
-        PhotoBucket photoBucket = photoPhotoBucketT.getPhotoBucket();
-        Photo photo = photoPhotoBucketT.getPhoto();
+        PhotoBucket photoBucket = photoPhotoBucket.getPhotoBucket();
+        Photo photo = photoPhotoBucket.getPhoto();
         photo.setUser(getCurrentUser());
         photo.setPhotoPath(getUploadPath() + photoBucket.getMultipartFile().getOriginalFilename());
 
