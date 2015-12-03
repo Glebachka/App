@@ -4,7 +4,7 @@ import com.saienko.model.Link;
 import com.saienko.model.Photo;
 import com.saienko.model.PhotoBucket;
 import com.saienko.model.User;
-import com.saienko.model.utilClasses.PhotoPhotoBucket;
+import com.saienko.model.utilClassesTTT.PhotoPhotoBucket;
 import com.saienko.service.linkService.LinkService;
 import com.saienko.service.photoService.PhotoService;
 import com.saienko.service.userService.UserService;

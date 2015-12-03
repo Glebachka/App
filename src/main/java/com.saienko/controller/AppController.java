@@ -73,6 +73,12 @@ public class AppController {
         return "redirect:/login?logout";
     }
 
+    @RequestMapping(value = "/accessDenied", method = RequestMethod.GET)
+    public String accessDeniedPage(ModelMap model) {
+        model.addAttribute("user", getCurrentUser().getUserName());
+        return "accessDenied";
+    }
+
     private User getCurrentUser() {
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String userLogin = "";
