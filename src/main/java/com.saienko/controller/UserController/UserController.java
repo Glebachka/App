@@ -1,6 +1,9 @@
 package com.saienko.controller.UserController;
 
-import com.saienko.model.*;
+import com.saienko.model.Link;
+import com.saienko.model.Photo;
+import com.saienko.model.PhotoBucket;
+import com.saienko.model.User;
 import com.saienko.model.UtilClasses.PhotoPhotoBucket;
 import com.saienko.service.LinkService.LinkService;
 import com.saienko.service.PhotoService.PhotoService;
@@ -12,8 +15,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
@@ -60,7 +65,7 @@ public class UserController {
         return getUrl();
     }
 
-
+//TODO: make edit option in popup
 //    @RequestMapping(value = {"/edit-{linkId}"}, method = RequestMethod.GET)
 //    public String getLink(@PathVariable int linkId, ModelMap model) {
 //        Link link = linkService.findLinkById(linkId);
@@ -76,76 +81,60 @@ public class UserController {
 //    }
 
 
-    @Autowired
-    PhotoBucketValidator photoBucketValidator;
-
-    @InitBinder("fileBucket")
-    protected void initBinderFileBucket(WebDataBinder binder) {
-        binder.setValidator(photoBucketValidator);
-    }
+//    @Autowired
+//    PhotoBucketValidator photoBucketValidator;
+//
+//    @InitBinder("photoBucket")
+//    protected void initBinderFileBucket(WebDataBinder binder) {
+//        binder.setValidator(photoBucketValidator);
+//    }
 
 
     @RequestMapping(value = "/uploadpage", method = RequestMethod.GET)
     public String getPhotoUpload(ModelMap model) {
-//        Photo newPhoto = new Photo();
-//        PhotoBucket photoBucket = new PhotoBucket();
         PhotoPhotoBucket photoPhotoBucket = new PhotoPhotoBucket();
-//        model.addAttribute("newPhoto", newPhoto);
-//        model.addAttribute("photoBucket", photoBucket);
+        Photo photo = new Photo();
+        PhotoBucket photoBucket = new PhotoBucket();
+        model.addAttribute("photo", photo);
+        model.addAttribute("photoBucket", photoBucket);
         model.addAttribute("photoPhotoBucket", photoPhotoBucket);
+        model.addAttribute("currentUserRole", getCurrentRole());
+//        model.addAttribute("currentUserLogin", getCurrentUser().getUserLogin());
         return "uploadpage";
     }
 
     @RequestMapping(value = "/uploadpage", method = RequestMethod.POST)
-//    public String uploadPhoto(@Valid @RequestPart("photoBucket") PhotoBucket photoBucket,
-//                              @RequestPart("newPhoto") Photo photo,
-//                              ModelMap model, BindingResult result)  {
-//    public String uploadPhoto(@Valid PhotoBucket fileBucket, ModelMap model, BindingResult result) throws IOException {
     public String uploadPhoto(PhotoPhotoBucket photoPhotoBucket, ModelMap model, BindingResult result) throws IOException {
 
-        Photo photo = photoPhotoBucket.getPhoto();
         PhotoBucket photoBucket = photoPhotoBucket.getPhotoBucket();
-        if (result.hasErrors()) {
-            System.out.println("validation errors");
-            return "uploadpage";
-        } else {
-            MultipartFile multipartFile = photoBucket.getFile();
-            File checkDirectory = new File(getUploadPath());
-            if (!checkDirectory.exists()) {
-                boolean makeDirs = false;
-                try {
-                    checkDirectory.mkdirs();
-                    makeDirs = true;
-                } catch (SecurityException se) {
-                    logger.config("dir creation error in UserController" + se);
-                }
-            }
+        Photo photo = photoPhotoBucket.getPhoto();
+        photo.setUser(getCurrentUser());
+        photo.setPhotoPath(getUploadPath() + photoBucket.getMultipartFile().getOriginalFilename());
 
+//        if (result.hasErrors()) {
+//            System.out.println("validation errors");
+//            return "uploadpage";
+//        } else {
+        MultipartFile multipartFile = photoBucket.getMultipartFile();
+        File checkDirectory = new File(getUploadPath());
+        if (!checkDirectory.exists()) {
+            boolean makeDirs = false;
             try {
-                FileCopyUtils.copy(photoBucket.getFile().getBytes(), new File(getUploadPath() + photoBucket.getFile().getOriginalFilename()));
-            } catch (IOException e) {
-                logger.config("File copy calls problem in UserController" + e);
+                checkDirectory.mkdirs();
+                makeDirs = true;
+            } catch (SecurityException se) {
+                logger.config("dir creation error in UserController" + se);
+//                }
             }
-            photoService.savePhoto(photo);
-
-//            String fileName = multipartFile.getOriginalFilename();
-//            model.addAttribute("fileName", fileName);
-            return "successupload";
         }
+        try {
+            FileCopyUtils.copy(photoBucket.getMultipartFile().getBytes(), new File(getUploadPath() + photoBucket.getMultipartFile().getOriginalFilename()));
+        } catch (IOException e) {
+            logger.config("File copy calls problem in UserController" + e);
+        }
+        photoService.savePhoto(photo);
+        return "successupload";
     }
-
-
-//        MultipartFile multipartFile = photoBucket.getFile();
-//
-//        try {
-//            FileCopyUtils.copy(photoBucket.getFile().getBytes(), new File(getUploadPath() + photoBucket.getFile().getOriginalFilename()));
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//        String fileName = multipartFile.getOriginalFilename();
-//        model.addAttribute("fileName", fileName);
-//        photoService.savePhoto(photo);
-//        return "successupload";
 
 
     private User getCurrentUser() {

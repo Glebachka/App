@@ -1,7 +1,5 @@
 package com.saienko.model;
 
-import org.hibernate.validator.constraints.NotEmpty;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
@@ -13,9 +11,9 @@ import javax.validation.constraints.NotNull;
 public class Photo {
 
     @Id
+    @NotNull
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "PHOTO_ID")
-    @NotEmpty
     private int photoId;
 
     @NotNull
@@ -59,7 +57,8 @@ public class Photo {
     @Override
     public int hashCode() {
         int result = getPhotoId();
-        result = 31 * result + getUser().hashCode();
+        result = 31 * result + getPhotoPath().hashCode();
+        result = 31 * result + getPhotoAvatar().hashCode();
         return result;
     }
 

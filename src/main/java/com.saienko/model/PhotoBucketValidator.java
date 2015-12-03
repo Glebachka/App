@@ -15,8 +15,8 @@ public class PhotoBucketValidator implements Validator {
 
     public void validate(Object obj, Errors errors) {
         PhotoBucket file = (PhotoBucket) obj;
-        if(file.getFile()!=null){
-            if (file.getFile().getSize() == 0) {
+        if(file.getMultipartFile()!=null){
+            if (file.getMultipartFile().getSize() == 0) {
                 errors.rejectValue("file", "missing.file");
             }
         }

@@ -1,5 +1,7 @@
 package com.saienko.cofigurations;
 
+import com.saienko.cofigurations.converters.RoleConverter;
+import com.saienko.cofigurations.converters.UserConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
@@ -31,6 +33,9 @@ public class AppConfig extends WebMvcConfigurerAdapter {
 
     @Autowired
     RoleConverter roleConverter;
+
+    @Autowired
+    UserConverter userConverter;
 
     @Bean(name = "multipartResolver")
     public MultipartResolver multipartResolver() throws IOException {
@@ -69,6 +74,7 @@ public class AppConfig extends WebMvcConfigurerAdapter {
 
     public void addFormatters(FormatterRegistry registry) {
         registry.addConverter(roleConverter);
+        registry.addConverter(userConverter);
     }
 
 

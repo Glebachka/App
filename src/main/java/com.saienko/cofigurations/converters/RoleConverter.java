@@ -1,4 +1,4 @@
-package com.saienko.cofigurations;
+package com.saienko.cofigurations.converters;
 
 import com.saienko.model.UserRole;
 import com.saienko.service.UserRoleService.UserRoleService;
@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public class RoleConverter implements Converter<Object, UserRole> {
+
     @Autowired
     UserRoleService userRoleService;
 

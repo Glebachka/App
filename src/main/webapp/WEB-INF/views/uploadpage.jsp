@@ -14,17 +14,17 @@
 </head>
 <body>
 <input type="hidden" id="currentUserRole" value="${currentUserRole}"/>
-<input type="hidden" id="currentUser" value="${currentUser}"/>
+<%--<input type="hidden" id="currentUserLogin" value="${currentUserLogin}"/>--%>
 
 <form:form method="POST" modelAttribute="photoPhotoBucket" commandName="photoPhotoBucket" enctype="multipart/form-data">
 
     <%--&lt;%&ndash;**?${_csrf.parameterName}=${_csrf.token}**&ndash;%&gt;--%>
 
     <form:input type="hidden" path="photo.photoId" id="photId"/>
-    <form:input type="hidden" path="photo.user" id="${currentUser}"/>
+    <form:input type="hidden" path="photo.user" id=""/>
 
     <br>
-    <form:input type="hidden" path="photo.photoPath" id="${currentUser.userLogin}"/>
+    <form:input type="hidden" path="photo.photoPath" id=""/>
     <br>
     <label for="photoName">Name</label>
     <form:input type="text" path="photo.photoName" id="photoName"/>
@@ -34,7 +34,7 @@
     <br>
     <form:checkbox path="photo.photoAvatar" id="photoAvatar" value="true"/>
 
-    <form:input type="file" path="photoBucket" id="photoBucket" class="form-control input-sm"/>
+    <form:input type="file" path="photoBucket.multipartFile" id="multipartFile" class="form-control input-sm"/>
     <%--<form:errors path="file" class="help-inline"/>--%>
 
     <input type="submit" value="Upload" class="btn btn-primary btn-sm">

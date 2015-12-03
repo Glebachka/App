@@ -8,14 +8,13 @@ import org.springframework.web.multipart.MultipartFile;
 
 public class PhotoBucket {
 
-     MultipartFile file;
+     MultipartFile multipartFile;
 
-    public MultipartFile getFile() {
-        return file;
+    public MultipartFile getMultipartFile() {
+        return multipartFile;
     }
 
-    public void setFile(MultipartFile file) {
-        this.file = file;
+    public void setMultipartFile(MultipartFile multipartFile) {
+        this.multipartFile = multipartFile;
     }
-
 }
