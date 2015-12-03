@@ -18,5 +18,5 @@ public interface PhotoService {
 
     Photo fidnPhotoById(Integer photo_id);
 
-    Photo updatePhoto(Photo photo);
+    void updatePhoto(Photo photo);
 }

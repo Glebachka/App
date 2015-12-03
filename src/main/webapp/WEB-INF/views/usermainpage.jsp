@@ -27,9 +27,9 @@
                 <td>${link.link}</td>
                 <td>${link.linkDescription}</td>
 
-                <td>
-                    <a href="<c:url value='/${currentUserRole}/edit-${link.linkId}'/> ">${link.link}</a>
-                </td>
+                <%--<td>--%>
+                    <%--<a href="<c:url value='/${currentUserRole}/edit-${link.linkId}'/> ">${link.link}</a>--%>
+                <%--</td>--%>
                 <td><a href="<c:url value='/${currentUserRole}/delete-${link.linkId}'/> ">Delete</a>
                 </td>
             </tr>
@@ -53,5 +53,8 @@
         <input type="submit" class="btn btn-default" value="New Link"/>
     </form:form>
 </div>
+
+<a href="<c:url value='/${currentUserRole}/uploadpage'/> ">upload</a>
+
 </body>
 </html>

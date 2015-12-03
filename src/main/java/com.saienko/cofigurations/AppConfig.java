@@ -7,7 +7,6 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.context.support.ResourceBundleMessageSource;
-import org.springframework.core.io.FileSystemResource;
 import org.springframework.format.FormatterRegistry;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.web.multipart.MultipartResolver;
@@ -32,6 +31,15 @@ public class AppConfig extends WebMvcConfigurerAdapter {
 
     @Autowired
     RoleConverter roleConverter;
+
+    @Bean(name = "multipartResolver")
+    public MultipartResolver multipartResolver() throws IOException {
+        CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver();
+//        multipartResolver.setUploadTempDir(new FileSystemResource("/tmp/App/uploads"));
+        multipartResolver.setMaxUploadSize(5242880);
+//        multipartResolver.setMaxInMemorySize(0);
+        return multipartResolver;
+    }
 
     @Bean
     public ViewResolver viewResolver() {
@@ -64,14 +72,7 @@ public class AppConfig extends WebMvcConfigurerAdapter {
         registry.addConverter(roleConverter);
     }
 
-    @Bean(name= "multypartResolver")
-    public MultipartResolver multipartResolver() throws IOException {
-        CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver();
-        multipartResolver.setUploadTempDir(new FileSystemResource("/tmp/App/uploads"));
-        multipartResolver.setMaxUploadSize(5242880);
-        multipartResolver.setMaxInMemorySize(0);
-        return multipartResolver;
-    }
+
 }
 
 
