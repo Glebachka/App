@@ -1,4 +1,4 @@
-package com.saienko.dao.Photo;
+package com.saienko.dao.photoDao;
 
 import com.saienko.dao.AbstractDao;
 import com.saienko.model.Photo;
@@ -29,7 +29,7 @@ public class PhotoDaoImpl extends AbstractDao<Integer, Photo> implements PhotoDa
 
     public List<Photo> findAllPhotos(User user) {
         Criteria criteria = getSession().createCriteria(Photo.class);
-        criteria.add(Restrictions.eq("user", user));
+        criteria.add(Restrictions.eq("userDao", user));
         return (List<Photo>) criteria.list();
     }
 

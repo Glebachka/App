@@ -61,7 +61,7 @@ public class AppSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
         } else if (isAdmin(roles)) {
             url = "/admin/";
         } else if (isUser(roles)) {
-            url = "/user/";
+            url = "/userDao/";
         } else {
             url = "/accessDenied";
         }

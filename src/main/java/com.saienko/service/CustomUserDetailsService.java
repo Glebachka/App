@@ -2,7 +2,7 @@ package com.saienko.service;
 
 import com.saienko.model.User;
 import com.saienko.model.UserRole;
-import com.saienko.service.UserService.UserService;
+import com.saienko.service.userService.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -33,7 +33,6 @@ public class CustomUserDetailsService implements UserDetailsService {
         }
         return new org.springframework.security.core.userdetails.User(user.getUserName(),
                 user.getUserPassword(), getGrantedAuthorities(user));
-
     }
 
     private List<GrantedAuthority> getGrantedAuthorities(User user) {

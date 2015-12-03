@@ -1,4 +1,4 @@
-package com.saienko.dao.UserRole;
+package com.saienko.dao.userRoleDao;
 
 import com.saienko.model.UserRole;
 

@@ -1,6 +1,10 @@
 /**
- * Created by gleb on 05.11.2015.
+ * Created by gleb on 24.11.2015.
  */
+$(function () {
 
-'use strict';
-var App = angular.module('App', []);
+    var currentUserRoleJs = $('#currentUserRole').val();
+    if (currentUserRoleJs != 'dba') {
+        $('a').hide();
+    }
+});

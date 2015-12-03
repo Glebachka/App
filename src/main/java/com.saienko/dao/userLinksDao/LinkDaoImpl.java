@@ -1,4 +1,4 @@
-package com.saienko.dao.UserLinks;
+package com.saienko.dao.userLinksDao;
 
 import com.saienko.dao.AbstractDao;
 import com.saienko.model.Link;
@@ -23,7 +23,7 @@ public class LinkDaoImpl extends AbstractDao<Integer, Link> implements LinkDao {
 
     public List<Link> findAllUserLinks(User user) {
         Criteria criteria = getSession().createCriteria(Link.class);
-        criteria.add(Restrictions.eq("user", user));
+        criteria.add(Restrictions.eq("userDao", user));
         return (List<Link>) criteria.list();
 
     }
