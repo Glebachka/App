@@ -1,7 +1,7 @@
-package com.saienko.service.userServiceT;
+package com.saienko.service.userService;
 
 
-import com.saienko.dao.userDaoT.UserDao;
+import com.saienko.dao.userDao.UserDao;
 import com.saienko.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

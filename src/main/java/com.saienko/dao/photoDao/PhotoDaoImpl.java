@@ -1,4 +1,4 @@
-package com.saienko.dao.photoDaoT;
+package com.saienko.dao.photoDao;
 
 import com.saienko.dao.AbstractDao;
 import com.saienko.model.Photo;
@@ -13,7 +13,7 @@ import java.util.List;
 /**
  * Created by gleb on 01.12.2015.
  */
-@Repository("photoDaoT")
+@Repository("photoDao")
 public class PhotoDaoImpl extends AbstractDao<Integer, Photo> implements PhotoDao {
 
     public void savePhoto(Photo photo) {

@@ -1,26 +1,34 @@
-package com.saienko.controller.adminControllerT;
+package com.saienko.controller.dbaController;
 
 import com.saienko.model.User;
-import com.saienko.service.userServiceT.UserService;
+import com.saienko.model.UserRole;
+import com.saienko.service.userRoleService.UserRoleService;
+import com.saienko.service.userService.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 import java.util.Locale;
 
 /**
  * Created by gleb on 21.11.2015.
+ * DBA controller class. Includes all allowed actions with users and admins.
  */
 @Controller
-@RequestMapping("/admin")
-public class AdminController {
+@SessionAttributes("roles")
+@RequestMapping("/dba")
+public class DBAController {
+
+    @Autowired
+    UserRoleService userRoleService;
 
     @Autowired
     UserService userService;
@@ -28,6 +36,14 @@ public class AdminController {
     @Autowired
     MessageSource messageSource;
 
+    /**
+     * Method for delete user
+     */
+    @RequestMapping(value = {"/delete-{userLogin}-user"}, method = RequestMethod.GET)
+    public String deleteUser(@PathVariable String userLogin) {
+        userService.deleteUserByUserLogin(userLogin);
+        return "redirect:/dba/list";
+    }
 
     /**
      * Medium method for user creation
@@ -43,7 +59,6 @@ public class AdminController {
     /**
      * Method for Add a new user from form submission.
      */
-
     @RequestMapping(value = {"/new"}, method = RequestMethod.POST)
     public String saveUser(@Valid User user, BindingResult result, ModelMap model) {
         if (result.hasErrors()) {
@@ -57,12 +72,20 @@ public class AdminController {
         }
 
         userService.saveUser(user);
-        model.addAttribute("success", "user" + user.getUserName() + " registered complete");
-        return "success";
+        return "redirect:/dba/list";
+    }
+
+
+    /**
+     * Method for get role-types.
+     */
+    @ModelAttribute("roles")
+    public List<UserRole> initializeRoles() {
+        return userRoleService.findAllUserRole();
     }
 
     /**
-     * Medium method for update user.
+     * Medium method for update user
      */
     @RequestMapping(value = {"/edit-{userLogin}-user"}, method = RequestMethod.GET)
     public String editUser(@PathVariable String userLogin, ModelMap model) {
@@ -87,8 +110,41 @@ public class AdminController {
             return "registration";
         }
         userService.updateUser(user);
-        model.addAttribute("success", "user" + user.getUserName() + " updated complete");
+        model.addAttribute("success", "user " + user.getUserName() + " updated complete");
         return "success";
     }
 
+
+
+    /**
+     * This method returns current user
+     *
+     * @return
+     */
+    private User getCurrentUser() {
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String userLogin = "";
+        User currentUser = null;
+        if (principal instanceof UserDetails) {
+            userLogin = ((UserDetails) principal).getUsername();
+            currentUser = userService.findUserByLogin(userLogin);
+        } else {
+            userLogin = principal.toString();
+            currentUser = userService.findUserByLogin(userLogin);
+        }
+        return currentUser;
+    }
+
+    /**
+     * Thos method returns current role of the user
+     *
+     * @return
+     */
+    private String getCurrentRole() {
+        String userRole = getCurrentUser().getUserRoles().toString();
+        int size = userRole.length() - 1;
+        StringBuilder userRoleSB = new StringBuilder(userRole);
+        userRole = userRoleSB.deleteCharAt(size).deleteCharAt(0).toString().toLowerCase();
+        return userRole;
+    }
 }

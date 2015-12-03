@@ -1,6 +1,6 @@
-package com.saienko.service.userRoleServiceT;
+package com.saienko.service.userRoleService;
 
-import com.saienko.dao.userRoleDaoT.UserRoleDao;
+import com.saienko.dao.userRoleDao.UserRoleDao;
 import com.saienko.model.UserRole;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

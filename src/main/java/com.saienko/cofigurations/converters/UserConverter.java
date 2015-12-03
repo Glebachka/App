@@ -1,7 +1,7 @@
 package com.saienko.cofigurations.converters;
 
 import com.saienko.model.User;
-import com.saienko.service.userServiceT.UserService;
+import com.saienko.service.userService.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;

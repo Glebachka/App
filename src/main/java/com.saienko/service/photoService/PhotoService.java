@@ -1,4 +1,4 @@
-package com.saienko.service.photoServiceT;
+package com.saienko.service.photoService;
 
 import com.saienko.model.Photo;
 import com.saienko.model.User;

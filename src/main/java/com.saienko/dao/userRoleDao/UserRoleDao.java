@@ -1,16 +1,16 @@
-package com.saienko.service.userRoleServiceT;
+package com.saienko.dao.userRoleDao;
 
 import com.saienko.model.UserRole;
 
 import java.util.List;
 
 /**
- * Created by gleb on 25.11.2015.
+ * Created by gleb on 21.11.2015.
  */
-public interface UserRoleService {
+public interface UserRoleDao {
     List<UserRole> findAllUserRole();
 
-    UserRole findById(int id);
-
     UserRole findByRole(String role);
+
+    UserRole findById(int id);
 }
