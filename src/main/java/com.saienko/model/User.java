@@ -38,6 +38,11 @@ public class User {
     @OneToMany
     private Set<Photo> photos;
 
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "USER_BANK", joinColumns = {@JoinColumn(name = "USERID")},
+            inverseJoinColumns = {@JoinColumn(name = "BANK_ID")})
+    private Set<Bank> banks;
+
     @Column(name = "USERPASSWORD", nullable = false)
     private String userPassword;
 
@@ -88,6 +93,23 @@ public class User {
     public void setLinks(Set<Link> links) {
         this.links = links;
     }
+
+    public Set<Bank> getBanks() {
+        return banks;
+    }
+
+    public void setBanks(Set<Bank> banks) {
+        this.banks = banks;
+    }
+
+    public Set<Photo> getPhotos() {
+        return photos;
+    }
+
+    public void setPhotos(Set<Photo> photos) {
+        this.photos = photos;
+    }
+
 
     @Override
     public boolean equals(Object o) {

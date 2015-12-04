@@ -45,7 +45,6 @@ public class LinkServiceImpl implements LinkService {
     }
 
     public boolean isLinkUnique(Integer id, String link) {
-
         Link linkEntity = linkDao.findLinkByLink(link);
         return (linkEntity == null || ((id != null) && (linkEntity.getLinkId() == id)));
     }
