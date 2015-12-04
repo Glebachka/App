@@ -10,8 +10,9 @@ import java.util.List;
  */
 public interface BankDao {
     void  saveBank(Bank bank);
-    void deleteBank(Bank bank);
-    void findBankById(Integer bank_id);
+    void deleteBank(Integer bankId);
+    Bank findBankById(Integer bankId);
+    Bank findBankByName(String name);
     List<Bank> findAllBanks();
     List<Bank> findAllUserBanks(User user);
 }
