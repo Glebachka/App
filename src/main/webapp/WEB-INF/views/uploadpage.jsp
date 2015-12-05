@@ -9,7 +9,8 @@
 <input type="hidden" id="currentUserRole" value="${currentUserRole}"/>
 
 
-<form:form method="POST" modelAttribute="photoPhotoBucket" commandName="photoPhotoBucket" enctype="multipart/form-data" action="./uploadpage?${_csrf.parameterName}=${_csrf.token}">
+<form:form method="POST" modelAttribute="photoPhotoBucket" commandName="photoPhotoBucket" enctype="multipart/form-data"
+           action="./uploadpage?${_csrf.parameterName}=${_csrf.token}">
 
     <form:input type="hidden" path="photo.photoId" id="photId"/>
     <form:input type="hidden" path="photo.user" id=""/>

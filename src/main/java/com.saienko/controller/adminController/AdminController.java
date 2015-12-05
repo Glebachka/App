@@ -1,6 +1,7 @@
 package com.saienko.controller.adminController;
 
 import com.saienko.model.User;
+import com.saienko.service.bankService.BankService;
 import com.saienko.service.userService.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
@@ -27,6 +28,10 @@ public class AdminController {
 
     @Autowired
     MessageSource messageSource;
+
+    @Autowired
+    BankService bankService;
+
 
 
     /**
