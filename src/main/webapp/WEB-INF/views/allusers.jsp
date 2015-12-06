@@ -67,7 +67,6 @@
 
 <a class="btn btn-default" href="<c:url value='/${currentUserRole}/new' /> ">Add new User</a>
 <a class="btn btn-default" href="<c:url value='/logout' /> ">LogOut</a>
-<a class="btn btn-default" href="http://google.com">GOOGLE</a>
 
 </body>
 </html>
