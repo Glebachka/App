@@ -26,9 +26,6 @@ import java.io.IOException;
 import java.util.List;
 import java.util.logging.Logger;
 
-/**
- * Created by gleb on 21.11.2015.
- */
 @Controller
 @RequestMapping("/user")
 public class UserController {
@@ -42,6 +39,11 @@ public class UserController {
     @Autowired
     LinkService linkService;
 
+    /**
+     * this method returns list of user`s links
+     * @param model
+     * @return
+     */
     @RequestMapping(value = {"/links", "/"}, method = RequestMethod.GET)
     public String findLinks(ModelMap model) {
         List<Link> links = linkService.findAllUserLinks(getCurrentUser());
@@ -52,12 +54,23 @@ public class UserController {
         return "usermainpage";
     }
 
+    /**
+     * This method delete user link and refreshes the page.
+     * @param linkId
+     * @return
+     */
     @RequestMapping(value = {"/delete-{linkId}"}, method = RequestMethod.GET)
     public String deleteLinkById(@PathVariable Integer linkId) {
         linkService.deleteLinkByID(linkId);
         return getUrl();
     }
 
+    /**
+     * This method adds link and refreshed the page.
+     * @param link
+     * @param result
+     * @return
+     */
     @RequestMapping(value = {"/addLink"}, method = RequestMethod.POST)
     public String saveLink(@ModelAttribute Link link, BindingResult result) {
         link.setUser(getCurrentUser());
@@ -90,6 +103,11 @@ public class UserController {
 //    }
 
 
+    /**
+     * This method redirect user to upload page.
+     * @param model
+     * @return
+     */
     @RequestMapping(value = "/uploadpage", method = RequestMethod.GET)
     public String getPhotoUpload(ModelMap model) {
         PhotoPhotoBucket photoPhotoBucket = new PhotoPhotoBucket();
@@ -102,6 +120,14 @@ public class UserController {
         return "uploadpage";
     }
 
+    /**
+     * This method upload files of the user in two different models: as Entity Photo and as PhotoBucket
+     * @param photoPhotoBucket
+     * @param model
+     * @param result
+     * @return
+     * @throws IOException
+     */
     @RequestMapping(value = "/uploadpage", method = RequestMethod.POST)
     public String uploadPhoto(PhotoPhotoBucket photoPhotoBucket, ModelMap model, BindingResult result) throws IOException {
 
@@ -136,6 +162,10 @@ public class UserController {
     }
 
 
+    /**
+     * Returns curent user.
+     * @return
+     */
     private User getCurrentUser() {
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String userLogin = "";
@@ -150,11 +180,19 @@ public class UserController {
         return currentUser;
     }
 
+    /**
+     * This method returns url for refresh the page.
+     * @return
+     */
     private String getUrl() {
         String url = "redirect:/" + getCurrentRole() + "/links";
         return url;
     }
 
+    /**
+     * Returns user role.
+     * @return
+     */
     private String getCurrentRole() {
         String userRole = getCurrentUser().getUserRoles().toString();
         int size = userRole.length() - 1;
@@ -163,6 +201,10 @@ public class UserController {
         return userRole;
     }
 
+    /**
+     * We user this method for identify user files.
+     * @return
+     */
     private String getUploadPath() {
         String uploadLocation = "/tmp/App/uploads/" + getCurrentUser().getUserLogin() + "/";
         return uploadLocation;

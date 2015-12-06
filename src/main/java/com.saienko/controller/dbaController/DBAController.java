@@ -138,7 +138,7 @@ public class DBAController {
     /**
      * Thos method returns current role of the user
      *
-     * @return
+     * @return role
      */
     private String getCurrentRole() {
         String userRole = getCurrentUser().getUserRoles().toString();

@@ -38,13 +38,23 @@ public class AppController {
     /**
      * Method returns all users;
      */
-    @RequestMapping(value = {"/list", "/admin/list", "/dba/list", "/admin", "/dba"}, method = RequestMethod.GET)
+//    @RequestMapping(value = {"/list", "/admin/list", "/dba/list", "/admin", "/dba"}, method = RequestMethod.GET)
+    @RequestMapping(value = {"/list", "/dba/list", "/dba"}, method = RequestMethod.GET)
     public String listUsers(ModelMap model) {
         List<User> users = userService.findAllUsers();
         model.addAttribute("currentUserName", getCurrentUser().getUserName());
         model.addAttribute("currentUserRole", getCurrentRole());
         model.addAttribute("users", users);
         return "allusers";
+    }
+
+    /**
+     * This is redirect to admin for work with banks
+     * @return
+     */
+    @RequestMapping(value = {"/admin"}, method=RequestMethod.GET)
+    public String ajaxRedirect(){
+        return "getbanks";
     }
 
     /**
@@ -73,12 +83,21 @@ public class AppController {
         return "redirect:/login?logout";
     }
 
+    /**
+     * This is the controller which react on user less priority.
+     * @param model
+     * @return
+     */
     @RequestMapping(value = "/accessDenied", method = RequestMethod.GET)
     public String accessDeniedPage(ModelMap model) {
         model.addAttribute("user", getCurrentUser().getUserName());
         return "accessDenied";
     }
 
+    /**
+     * Returns current user.
+     * @return
+     */
     private User getCurrentUser() {
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String userLogin = "";
@@ -93,6 +112,10 @@ public class AppController {
         return currentUser;
     }
 
+    /**
+     * Returns user role.
+     * @return
+     */
     private String getCurrentRole() {
         String userRole = getCurrentUser().getUserRoles().toString();
         int size = userRole.length() - 1;
