@@ -4,7 +4,7 @@
 //    $.ajax(
 //        {
 //            type: "GET",
-//            url: "${home}/admin/getbanks",
+//            url: "${home}/admin/bank",
 //            data: result,
 //            dataType: "json",
 //            success: function (data) {
@@ -29,7 +29,7 @@
 //    $.ajax({
 //        type: "POST",
 //        contentType: "application/json",
-//        url: "{$home}/admin/newBanks",
+//        url: "{$home}/admin/newBank",
 //        data: JSON.stringify(data),
 //        dataType: 'json',
 //        success: function (data) {

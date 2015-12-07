@@ -15,37 +15,36 @@ import java.util.List;
  */
 @Repository
 public class BankDaoImpl extends AbstractDao<Integer, Bank> implements BankDao {
-    @Override
+
+
     public void saveBank(Bank bank) {
         persist(bank);
     }
 
-    @Override
+
     public void deleteBank(Integer bankId) {
         Query query = getSession().createSQLQuery("DELETE FROM bank WHERE BANK_ID = :bankId ");
         query.setInteger("bankId", bankId);
         query.executeUpdate();
     }
 
-    @Override
+
     public Bank findBankById(Integer bankId) {
        return getByKey(bankId);
     }
 
-    @Override
+
     public Bank findBankByName(String name) {
         Criteria criteria = createEntityCriteria();
         criteria.add(Restrictions.eq("bankName", name));
         return (Bank) criteria.uniqueResult();
     }
 
-    @Override
     public List<Bank> findAllBanks() {
         Criteria criteria = createEntityCriteria();
         return (List<Bank>) criteria.list();
     }
 
-    @Override
     public List<Bank> findAllUserBanks(User user) {
         Criteria criteria = createEntityCriteria();
         criteria.add(Restrictions.eq("user", user));

@@ -41,10 +41,7 @@ public class AppSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
             logger.info("redirect failed in AppHandler");
             return;
         }
-
-
         redirectStrategy.sendRedirect(request, response, targetUrl);
-
     }
 
     protected String determineTargetUrl(Authentication authentication) {

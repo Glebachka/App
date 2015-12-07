@@ -38,7 +38,6 @@ public class AppController {
     /**
      * Method returns all users;
      */
-//    @RequestMapping(value = {"/list", "/admin/list", "/dba/list", "/admin", "/dba"}, method = RequestMethod.GET)
     @RequestMapping(value = {"/list", "/dba/list", "/dba"}, method = RequestMethod.GET)
     public String listUsers(ModelMap model) {
         List<User> users = userService.findAllUsers();
@@ -53,7 +52,7 @@ public class AppController {
      * @return
      */
     @RequestMapping(value = {"/admin"}, method=RequestMethod.GET)
-    public String ajaxRedirect(){
+    public String getBanks(){
         return "getbanks";
     }
 
@@ -90,7 +89,7 @@ public class AppController {
      */
     @RequestMapping(value = "/accessDenied", method = RequestMethod.GET)
     public String accessDeniedPage(ModelMap model) {
-        model.addAttribute("user", getCurrentUser().getUserName());
+        model.addAttribute("useName", getCurrentUser().getUserName());
         return "accessDenied";
     }
 

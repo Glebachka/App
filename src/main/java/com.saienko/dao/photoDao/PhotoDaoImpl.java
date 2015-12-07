@@ -38,7 +38,7 @@ public class PhotoDaoImpl extends AbstractDao<Integer, Photo> implements PhotoDa
     }
 
     public Photo findPhotoByName(String name) {
-        Criteria criteria =createEntityCriteria();
+        Criteria criteria = createEntityCriteria();
         criteria.add(Restrictions.eq("photoname", name));
         return (Photo)criteria.uniqueResult();
     }
