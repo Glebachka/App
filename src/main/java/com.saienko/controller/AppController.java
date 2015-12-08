@@ -1,7 +1,4 @@
 package com.saienko.controller;
-
-
-
 import com.saienko.model.User;
 import com.saienko.service.userService.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +30,6 @@ public class AppController {
 
     @Autowired
     MessageSource messageSource;
-
 
     /**
      * Method returns all users;
