@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%--
   Created by IntelliJ IDEA.
   User: gleb
@@ -33,8 +34,17 @@
         </tbody>
     </table>
     <button type="button" ng-click="ctrl.findAllBanks()">Reset Form</button>
-
-
 </div>
+
+<div ng-controller="">
+    <form:form  >
+        <input type="text" placeholder="Bank name">
+
+
+        </table>
+
+    </div>
+
+
 </body>
 </html>
