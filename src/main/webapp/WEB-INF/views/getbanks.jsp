@@ -34,17 +34,25 @@
         </tbody>
     </table>
     <button type="button" ng-click="ctrl.findAllBanks()">Reset Form</button>
+
+
+    <form ng-submit="ctrl.submit()" name="bankForm">
+        <input type="hidden" ng-model="ctrl.bank.bankId"/>
+
+        <label >Name</label>
+        <input type="text" ng-model="ctrl.bank.bankName"
+               name="bankName" placeholder="enter Bank name" required ng-minlength="3"/>
+
+        <div ng-show="bankForm.$dirty">
+            <span ng-show="bankForm.bname.$error.required">Required feild.</span>
+            <span ng-show="bankForm.bname.$error.minlength">minimum length is 3</span>
+            <span ng-show="bankForm.bname.$invalid">bad credentails</span>
+        </div>
+
+        <input type="submit" value="{{!ctrl.bank.bankId ? 'new' : 'update'}}" ng-disabled="bankForm.$invalid">
+        <button type="button" ng-click="ctrl.reset()" ng-disabled="bankForm.$pristine">Reset From</button>
+    </form>
+
 </div>
-
-<div ng-controller="">
-    <form:form  >
-        <input type="text" placeholder="Bank name">
-
-
-        </table>
-
-    </div>
-
-
 </body>
 </html>

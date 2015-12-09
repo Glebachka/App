@@ -2,7 +2,7 @@
 App.factory('BankService', ['$http', '$q', function ($http, $q) {
     return {
         findAllBanks: function (){
-            return $http.get('http://localhost:8080/App/admin/bank')
+            return $http.get('http://localhost:8080/App/admin/bank/')
                 .then(
                 function (response) {
                     return response.data;
@@ -15,7 +15,7 @@ App.factory('BankService', ['$http', '$q', function ($http, $q) {
         },
 
         newBank: function(bank){
-            return $http.post('http://http://localhost:8080/App/admin/bank/new', bank).then(
+            return $http.post('http://http://localhost:8080/App/admin/bank/', bank).then(
                 function(response){
                     return response.data;
                 },
@@ -38,7 +38,7 @@ App.factory('BankService', ['$http', '$q', function ($http, $q) {
         },
 
         deleteBank: function(bankId){
-            return $http.delete('http://localhost:8080/App/admin/bank' + bankId).then (
+            return $http.delete('http://localhost:8080/App/admin/bank/' + bankId).then (
                 function (response) {
                     return response.data;
                 },
