@@ -12,7 +12,7 @@
 //                display(data);
 //            },
 //            error: function (e) {
-//                console.log("error", e);
+
 //                display(e);
 //            }
 //        }
