@@ -31,14 +31,19 @@ public class AppController {
     @Autowired
     MessageSource messageSource;
 
+    String currentUserName = getCurrentUser().getUserName();
+    String currentUserRole =  getCurrentRole();
+
     /**
      * Method returns all users;
      */
     @RequestMapping(value = {"/list", "/dba/list", "/dba"}, method = RequestMethod.GET)
     public String listUsers(ModelMap model) {
+
+
         List<User> users = userService.findAllUsers();
-        model.addAttribute("currentUserName", getCurrentUser().getUserName());
-        model.addAttribute("currentUserRole", getCurrentRole());
+        model.addAttribute("currentUserName", currentUserName);
+        model.addAttribute("currentUserRole", currentUserRole);
         model.addAttribute("users", users);
         return "allusers";
     }
